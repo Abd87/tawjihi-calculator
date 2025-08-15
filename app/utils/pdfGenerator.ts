@@ -65,7 +65,7 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
   const totalScore = `${result.totalScore}/300`
   
   doc.setFontSize(14)
-  doc.setFont(undefined, 'bold')
+  doc.setFont('helvetica', 'bold')
   doc.text(totalLabel, 30, yPosition)
   doc.text(totalScore, 150, yPosition)
   
@@ -80,7 +80,7 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
   
   // Footer
   doc.setFontSize(10)
-  doc.setFont(undefined, 'normal')
+  doc.setFont('helvetica', 'normal')
   const footer = language === 'ar' ? 'تم التطوير بواسطة عبدالرحمن الشباطات' : 'Developed by Abdlarahman Alshabatat'
   doc.text(footer, 105, 270, { align: 'center' })
   
