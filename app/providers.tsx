@@ -104,6 +104,7 @@ export function useLanguage() {
   }
   return context
 }
+
 ```
 
 ```typescript:Users/fastb/Desktop/tawjihi-calculator/app/page.tsx
@@ -164,6 +165,7 @@ export default function Home() {
     </div>
   )
 }
+
 ```
 
 ```typescript:Users/fastb/Desktop/tawjihi-calculator/app/components/Header.tsx
@@ -207,6 +209,7 @@ export default function Header() {
     </header>
   )
 }
+
 ```
 
 ```typescript:Users/fastb/Desktop/tawjihi-calculator/app/components/Calculator.tsx
@@ -350,6 +353,7 @@ export default function Calculator() {
     </div>
   )
 }
+
 ```
 
 Let me continue with the remaining component files:
@@ -454,6 +458,7 @@ export default function ContactForm() {
     </div>
   )
 }
+
 ```
 
 ```typescript:Users/fastb/Desktop/tawjihi-calculator/app/components/SocialLinks.tsx
@@ -516,6 +521,7 @@ export default function SocialLinks() {
     </div>
   )
 }
+
 ```
 
 ```typescript:Users/fastb/Desktop/tawjihi-calculator/app/components/FAQ.tsx
@@ -612,6 +618,7 @@ export default function FAQ() {
     </div>
   )
 }
+
 ```
 
 ```typescript:Users/fastb/Desktop/tawjihi-calculator/app/components/Footer.tsx
@@ -655,6 +662,7 @@ export default function Footer() {
     </footer>
   )
 }
+
 ```
 
 ```typescript:Users/fastb/Desktop/tawjihi-calculator/app/utils/pdfGenerator.ts
@@ -780,6 +788,7 @@ export const generatePDF = async (scores: Scores, result: number, language: stri
   link.click()
   URL.revokeObjectURL(url)
 }
+
 ```
 
 Now let me create the remaining files:
@@ -854,104 +863,4 @@ The app is ready for deployment on Vercel:
 - **WhatsApp Group**: [Join Group](https://chat.whatsapp.com/IYDbChe9mByEe2Ayy5rUfP?mode=ac_t)
 - **Instagram**: [@alwatheq_interactive](https://www.instagram.com/alwatheq_interactive/)
 - **App**: [واثق الأول on Google Play](https://play.google.com/store/apps/details?id=com.abd.watheq)
-```
-
-```gitignore:Users/fastb/Desktop/tawjihi-calculator/.gitignore
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-.yarn/install-state.gz
-
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# local env files
-.env*.local
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-```
-
-Perfect! Now I have created all the necessary files for your Tawjihi calculator website. Here's how to proceed:
-
-## **📁 Project Location:**
-Your project is now located at: `C:\Users\fastb\Desktop\tawjihi-calculator`
-
-## **🚀 Steps to Push to GitHub:**
-
-### **1. Open Command Prompt/PowerShell:**
-```bash
-<code_block_to_apply_changes_from>
-```
-
-### **2. Copy Your Logo:**
-```bash
-copy "C:\Users\fastb\Downloads\sandslogo (1).png" "public\logo.png"
-```
-
-### **3. Initialize Git and Push to GitHub:**
-```bash
-git init
-git add .
-git commit -m "Initial commit: Tawjihi Calculator website"
-```
-
-### **4. Create GitHub Repository:**
-- Go to [GitHub.com](https://github.com)
-- Click "New repository"
-- Name it: `tawjihi-calculator`
-- Make it public
-- Don't initialize with README
-- Click "Create repository"
-
-### **5. Connect and Push:**
-```bash
-git remote add origin https://github.com/YOUR_USERNAME/tawjihi-calculator.git
-git branch -M main
-git push -u origin main
-```
-
-### **6. Test Locally:**
-```bash
-npm install
-npm run dev
-```
-
-## **🎯 Next Steps:**
-1. **Deploy to Vercel** for free hosting
-2. Get your free domain: `tawjihi-calculator.vercel.app`
-
-The website is now ready with all features:
-- ✅ Multi-language (Arabic/English)
-- ✅ Calculator with PDF download
-- ✅ Contact form
-- ✅ Social media links
-- ✅ FAQ section
-- ✅ Mobile responsive
-- ✅ Your contact information
-
-Would you like me to help you with any of these steps?
 ```
