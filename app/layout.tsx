@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     'online tawjihi calculator',
     'حاسبة توجيهي اونلاين'
   ],
-  authors: [{ name: 'Abdlarahman Alshabatat', email: 'ashbatat@gmail.com' }],
+  authors: [{ name: 'Abdlarahman Alshabatat' }],
   creator: 'Abdlarahman Alshabatat',
   publisher: 'Tawjihi Calculator',
   formatDetection: {
