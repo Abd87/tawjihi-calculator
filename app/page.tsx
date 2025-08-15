@@ -158,38 +158,88 @@ export default function Home() {
             </div>
           )}
 
-          {/* Additional Information */}
-          <div className="bg-white rounded-xl shadow-lg p-6">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">
-              {language === 'en' ? 'Important Notes' : 'ملاحظات مهمة'}
-            </h3>
-            <div className="space-y-3 text-gray-600">
-              <p>
-                {language === 'en' 
-                  ? '• This calculator is for first year Tawjihi subjects only'
-                  : '• هذه الحاسبة للمواد الأساسية للسنة الأولى فقط'
-                }
-              </p>
-              <p>
-                {language === 'en'
-                  ? '• Marks distribution: English (100), Arabic (100), Islamic (60), History (40)'
-                  : '• توزيع الدرجات: الإنجليزية (100)، العربية (100)، الإسلامية (60)، التاريخ (40)'
-                }
-              </p>
-              <p>
-                {language === 'en'
-                  ? '• The percentage shown is 30% of your total score (out of 300 marks)'
-                  : '• النسبة المئوية المعروضة هي 30% من مجموع درجاتك (من أصل 300 درجة)'
-                }
-              </p>
-              <p>
-                {language === 'en'
-                  ? '• For official results, please refer to the Ministry of Education'
-                  : '• للنتائج الرسمية، يرجى الرجوع إلى وزارة التربية والتعليم'
-                }
-              </p>
-            </div>
-          </div>
+                     {/* Social Links Section */}
+           <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+             <h3 className="text-xl font-semibold text-gray-800 mb-6 text-center">
+               {language === 'en' ? 'Join Our Community' : 'انضم لمجتمعنا'}
+             </h3>
+             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+               {/* WhatsApp Group */}
+               <a
+                 href="https://chat.whatsapp.com/IYDbChe9mByEe2Ayy5rUfP?mode=ac_t"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 className="bg-green-600 text-white p-6 rounded-lg text-center hover:bg-green-700 transition-colors"
+               >
+                 <div className="text-3xl mb-2">📱</div>
+                 <h4 className="font-semibold mb-2">WhatsApp</h4>
+                 <p className="text-sm opacity-90">
+                   {language === 'ar' ? 'انضم لمجموعة الواتساب' : 'Join WhatsApp Group'}
+                 </p>
+               </a>
+
+               {/* Instagram */}
+               <a
+                 href="https://www.instagram.com/alwatheq_interactive/"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 className="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-6 rounded-lg text-center hover:from-purple-600 hover:to-pink-600 transition-colors"
+               >
+                 <div className="text-3xl mb-2">📸</div>
+                 <h4 className="font-semibold mb-2">Instagram</h4>
+                 <p className="text-sm opacity-90">
+                   {language === 'ar' ? 'تابع على الإنستغرام' : 'Follow on Instagram'}
+                 </p>
+               </a>
+
+               {/* App Download */}
+               <a
+                 href="https://play.google.com/store/apps/details?id=com.abd.watheq"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 className="bg-blue-600 text-white p-6 rounded-lg text-center hover:bg-blue-700 transition-colors"
+               >
+                 <div className="text-3xl mb-2">📱</div>
+                 <h4 className="font-semibold mb-2">واثق الأول</h4>
+                 <p className="text-sm opacity-90">
+                   {language === 'ar' ? 'حمل التطبيق' : 'Download App'}
+                 </p>
+               </a>
+             </div>
+           </div>
+
+           {/* Additional Information */}
+           <div className="bg-white rounded-xl shadow-lg p-6">
+             <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">
+               {language === 'en' ? 'Important Notes' : 'ملاحظات مهمة'}
+             </h3>
+             <div className="space-y-3 text-gray-600">
+               <p>
+                 {language === 'en' 
+                   ? '• This calculator is for first year Tawjihi subjects only'
+                   : '• هذه الحاسبة للمواد الأساسية للسنة الأولى فقط'
+                 }
+               </p>
+               <p>
+                 {language === 'en'
+                   ? '• Marks distribution: English (100), Arabic (100), Islamic (60), History (40)'
+                   : '• توزيع الدرجات: الإنجليزية (100)، العربية (100)، الإسلامية (60)، التاريخ (40)'
+                 }
+               </p>
+               <p>
+                 {language === 'en'
+                   ? '• The percentage shown is 30% of your total score (out of 300 marks)'
+                   : '• النسبة المئوية المعروضة هي 30% من مجموع درجاتك (من أصل 300 درجة)'
+                 }
+               </p>
+               <p>
+                 {language === 'en'
+                   ? '• For official results, please refer to the Ministry of Education'
+                   : '• للنتائج الرسمية، يرجى الرجوع إلى وزارة التربية والتعليم'
+                 }
+               </p>
+             </div>
+           </div>
         </div>
       </main>
 
