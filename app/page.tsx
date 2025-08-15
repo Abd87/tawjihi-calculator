@@ -63,290 +63,291 @@ export default function Home() {
     setResult(null)
   }
 
-     return (
-     <div className={`min-h-screen bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 ${language === 'ar' ? 'font-arabic' : ''}`} dir={language === 'ar' ? 'rtl' : 'ltr'}>
-              {/* Header */}
-        <header className="bg-white/95 backdrop-blur-sm shadow-xl border-b border-white/20">
-         <div className="container mx-auto px-4 py-4">
-           {/* Contact Info Bar */}
-           <div className="flex flex-col md:flex-row justify-between items-center mb-4 pb-4 border-b border-gray-200">
-             <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-600">
-               <div className="flex items-center space-x-2">
-                 <span className="font-semibold">
-                   {language === 'en' ? 'Developer:' : 'المطور:'}
-                 </span>
-                 <span>عبد الرحمن الشبطات</span>
-               </div>
-                               <div className="flex items-center space-x-2">
-                  <span>📧</span>
-                  <a href="mailto:ashbatat@gmail.com" className="hover:text-blue-600 transition-colors">
-                    ashbatat@gmail.com
-                  </a>
-                </div>
-                                 <div className="flex items-center space-x-2">
-                   <span>📞</span>
-                   <a href="tel:+962790881392" className="hover:text-blue-600 transition-colors" dir="ltr">
-                     +962 79 088 1392
-                   </a>
-                 </div>
-             </div>
-                           <button
-                onClick={toggleLanguage}
-                className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
-              >
-                {language === 'en' ? 'العربية' : 'English'}
-              </button>
-           </div>
-           
-                       {/* Main Title */}
-                         <div className="flex justify-center">
-               <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent animate-title-glow">
-                 {t('title')}
-               </h1>
-             </div>
-         </div>
-       </header>
+  return (
+    <div className={`min-h-screen bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 ${language === 'ar' ? 'font-arabic' : ''}`} dir={language === 'ar' ? 'rtl' : 'ltr'}>
+      {/* Header */}
+      <header className="bg-white/95 backdrop-blur-sm shadow-xl border-b border-white/20">
+        <div className="container mx-auto px-4 py-4">
+          {/* Contact Info Bar */}
+          <div className="flex flex-col md:flex-row justify-between items-center mb-4 pb-4 border-b border-gray-200">
+            <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-600">
+              <div className="flex items-center space-x-2">
+                <span className="font-semibold">
+                  {language === 'en' ? 'Developer:' : 'المطور:'}
+                </span>
+                <span>عبد الرحمن الشبطات</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <span>📧</span>
+                <a href="mailto:ashbatat@gmail.com" className="hover:text-blue-600 transition-colors">
+                  ashbatat@gmail.com
+                </a>
+              </div>
+              <div className="flex items-center space-x-2">
+                <span>📞</span>
+                <a href="tel:+962790881392" className="hover:text-blue-600 transition-colors" dir="ltr">
+                  +962 79 088 1392
+                </a>
+              </div>
+            </div>
+            <button
+              onClick={toggleLanguage}
+              className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
+            >
+              {language === 'en' ? 'العربية' : 'English'}
+            </button>
+          </div>
+          
+          {/* Main Title */}
+          <div className="flex justify-center">
+            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent animate-title-glow">
+              {t('title')}
+            </h1>
+          </div>
+        </div>
+      </header>
 
       <main className="container mx-auto px-4 py-8">
-                 {/* Hero Section */}
-         <div className="text-center mb-12 animate-fade-in">
-           <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 animate-slide-up">
-             {t('subtitle')}
-           </h2>
-           <p className="text-xl text-blue-100 max-w-3xl mx-auto animate-slide-up-delay">
-             {language === 'en' 
-               ? 'Enter your scores for each subject to calculate your Tawjihi percentage'
-               : 'أدخل درجاتك لكل مادة لحساب نسبة التوجيهي'
-             }
-           </p>
-         </div>
+        {/* Hero Section */}
+        <div className="text-center mb-12 animate-fade-in">
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 animate-slide-up">
+            {t('subtitle')}
+          </h2>
+          <p className="text-xl text-blue-100 max-w-3xl mx-auto animate-slide-up-delay">
+            {language === 'en' 
+              ? 'Enter your scores for each subject to calculate your Tawjihi percentage'
+              : 'أدخل درجاتك لكل مادة لحساب نسبة التوجيهي'
+            }
+          </p>
+        </div>
 
-                                   {/* Calculator Section */}
-          <div className="max-w-6xl mx-auto">
-            <div className="flex flex-col lg:flex-row gap-8">
-              {/* Social Media Links - Left Side */}
-              <div className="lg:w-1/4 space-y-4">
-                {/* WhatsApp Group */}
-                <a
-                  href="https://chat.whatsapp.com/IYDbChe9mByEe2Ayy5rUfP?mode=ac_t"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-gradient-to-br from-green-500 to-green-600 text-white p-6 rounded-xl text-center hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift block"
-                >
-                  <div className="text-3xl mb-3 animate-bounce">📱</div>
-                  <h4 className="font-bold text-lg mb-2">WhatsApp</h4>
-                  <p className="text-sm opacity-90">
-                    مجموعة واتساب للتوجيهي
-                  </p>
-                </a>
+        {/* Calculator Section */}
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Social Media Links - Left Side */}
+            <div className="lg:w-1/4 space-y-4">
+              {/* WhatsApp Group */}
+              <a
+                href="https://chat.whatsapp.com/IYDbChe9mByEe2Ayy5rUfP?mode=ac_t"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-gradient-to-br from-green-500 to-green-600 text-white p-6 rounded-xl text-center hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift block"
+              >
+                <div className="text-3xl mb-3 animate-bounce">📱</div>
+                <h4 className="font-bold text-lg mb-2">WhatsApp</h4>
+                <p className="text-sm opacity-90">
+                  مجموعة واتساب للتوجيهي
+                </p>
+              </a>
 
-                {/* Instagram */}
-                <a
-                  href="https://www.instagram.com/alwatheq_interactive/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 text-white p-6 rounded-xl text-center hover:from-purple-600 hover:via-pink-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift block"
-                >
-                  <div className="text-3xl mb-3 animate-pulse">📸</div>
-                  <h4 className="font-bold text-lg mb-2">Instagram</h4>
-                  <p className="text-sm opacity-90">
-                    انضم إلينا على الإنستغرام
-                  </p>
-                </a>
-              </div>
-
-              {/* Calculator - Right Side */}
-              <div className="lg:w-3/4">
-                <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-8 animate-fade-in-up">
-             <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-               {language === 'en' ? 'Enter Your Scores' : 'أدخل درجاتك'}
-             </h3>
-            
-                                                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {subjects.map((subject, index) => (
-                  <div key={subject.name} className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-200/50 hover:shadow-lg transition-all duration-200 transform hover:scale-102">
-                   <label className="block text-lg font-semibold text-gray-800 mb-3">
-                     {t(subject.name)}
-                   </label>
-                   <div className="flex items-center space-x-3">
-                     <input
-                       type="number"
-                       min="0"
-                       max={subject.maxMarks}
-                       value={subject.score}
-                       onChange={(e) => updateSubjectScore(index, parseInt(e.target.value) || 0)}
-                       className="flex-1 px-4 py-3 border-2 border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
-                       placeholder="0"
-                     />
-                     <span className="text-lg font-medium text-blue-600">
-                       / {subject.maxMarks}
-                     </span>
-                   </div>
-                 </div>
-               ))}
-             </div>
-
-                         <div className="flex justify-center space-x-12 mt-10">
-               <button
-                 onClick={calculateResult}
-                 className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-12 py-4 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold text-lg"
-               >
-                 {t('calculate')}
-               </button>
-               <button
-                 onClick={resetCalculator}
-                 className="bg-gradient-to-r from-gray-500 to-gray-600 text-white px-12 py-4 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold text-lg"
-               >
-                 {language === 'en' ? 'Reset' : 'إعادة تعيين'}
-               </button>
-                             </div>
-              </div>
+              {/* Instagram */}
+              <a
+                href="https://www.instagram.com/alwatheq_interactive/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 text-white p-6 rounded-xl text-center hover:from-purple-600 hover:via-pink-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift block"
+              >
+                <div className="text-3xl mb-3 animate-pulse">📸</div>
+                <h4 className="font-bold text-lg mb-2">Instagram</h4>
+                <p className="text-sm opacity-90">
+                  انضم إلينا على الإنستغرام
+                </p>
+              </a>
             </div>
 
-            {/* Results Section */}
-            {result && (
-              <div className="max-w-6xl mx-auto">
-                <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-8 animate-fade-in-up">
-                  <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-                    {t('result')}
-                  </h3>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl p-8 text-center hover-lift animate-pulse">
-                      <h4 className="text-xl font-semibold text-blue-800 mb-4">
-                        {t('total_score')}
-                      </h4>
-                      <p className="text-5xl font-bold text-blue-600">
-                        {result.totalScore}
-                      </p>
+            {/* Calculator - Right Side */}
+            <div className="lg:w-3/4">
+              <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-8 animate-fade-in-up">
+                <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  {language === 'en' ? 'Enter Your Scores' : 'أدخل درجاتك'}
+                </h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {subjects.map((subject, index) => (
+                    <div key={subject.name} className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-200/50 hover:shadow-lg transition-all duration-200 transform hover:scale-102">
+                      <label className="block text-lg font-semibold text-gray-800 mb-3">
+                        {t(subject.name)}
+                      </label>
+                      <div className="flex items-center space-x-3">
+                        <input
+                          type="number"
+                          min="0"
+                          max={subject.maxMarks}
+                          value={subject.score}
+                          onChange={(e) => updateSubjectScore(index, parseInt(e.target.value) || 0)}
+                          className="flex-1 px-4 py-3 border-2 border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                          placeholder="0"
+                        />
+                        <span className="text-lg font-medium text-blue-600">
+                          / {subject.maxMarks}
+                        </span>
+                      </div>
                     </div>
-                    
-                    <div className="bg-gradient-to-br from-green-100 to-green-200 rounded-xl p-8 text-center hover-lift animate-pulse">
-                      <h4 className="text-xl font-semibold text-green-800 mb-4">
-                        {t('percentage')}
-                      </h4>
-                      <p className="text-5xl font-bold text-green-600">
-                        {result.percentage.toFixed(2)}%
-                      </p>
-                    </div>
-                  </div>
+                  ))}
+                </div>
 
-                  <div className="mt-8 text-center">
-                    <button 
-                      onClick={() => generatePDF(subjects, result, language)}
-                      className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold text-lg animate-bounce"
-                    >
-                      📄 {t('download_pdf')}
-                    </button>
-                  </div>
+                <div className="flex justify-center space-x-12 mt-10">
+                  <button
+                    onClick={calculateResult}
+                    className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-12 py-4 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold text-lg"
+                  >
+                    {t('calculate')}
+                  </button>
+                  <button
+                    onClick={resetCalculator}
+                    className="bg-gradient-to-r from-gray-500 to-gray-600 text-white px-12 py-4 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold text-lg"
+                  >
+                    {language === 'en' ? 'Reset' : 'إعادة تعيين'}
+                  </button>
                 </div>
               </div>
-            )}
+            </div>
+          </div>
 
-            {/* App Download Section */}
+          {/* Results Section */}
+          {result && (
             <div className="max-w-6xl mx-auto">
               <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-8 animate-fade-in-up">
-                <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                  {language === 'en' ? 'Download Our App' : 'حمل تطبيقنا'}
+                <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+                  {t('result')}
                 </h3>
-                <div className="text-center">
-                  <a
-                    href="https://play.google.com/store/apps/details?id=com.abd.watheq"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white p-8 rounded-xl text-center hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift inline-block"
-                  >
-                    <div className="text-4xl mb-3 animate-bounce">📱</div>
-                    <h4 className="font-bold text-lg mb-3">واثق الأول</h4>
-                    <p className="text-sm opacity-90">
-                      {language === 'ar' ? 'حمل التطبيق' : 'Download App'}
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl p-8 text-center hover-lift animate-pulse">
+                    <h4 className="text-xl font-semibold text-blue-800 mb-4">
+                      {t('total_score')}
+                    </h4>
+                    <p className="text-5xl font-bold text-blue-600">
+                      {result.totalScore}
                     </p>
-                  </a>
+                  </div>
+                  
+                  <div className="bg-gradient-to-br from-green-100 to-green-200 rounded-xl p-8 text-center hover-lift animate-pulse">
+                    <h4 className="text-xl font-semibold text-green-800 mb-4">
+                      {t('percentage')}
+                    </h4>
+                    <p className="text-5xl font-bold text-green-600">
+                      {result.percentage.toFixed(2)}%
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-8 text-center">
+                  <button 
+                    onClick={() => generatePDF(subjects, result, language)}
+                    className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold text-lg animate-bounce"
+                  >
+                    📄 {t('download_pdf')}
+                  </button>
                 </div>
               </div>
             </div>
+          )}
 
-           {/* Additional Information */}
-           <div className="bg-white rounded-xl shadow-lg p-6">
-             <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">
-               {language === 'en' ? 'Important Notes' : 'ملاحظات مهمة'}
-             </h3>
-             <div className="space-y-3 text-gray-600">
-               <p>
-                 {language === 'en' 
-                   ? '• This calculator is for first year Tawjihi subjects only'
-                   : '• هذه الحاسبة للمواد الأساسية للسنة الأولى فقط'
-                 }
-               </p>
-               <p>
-                 {language === 'en'
-                   ? '• Marks distribution: English (100), Arabic (100), Islamic (60), History (40)'
-                   : '• توزيع الدرجات: الإنجليزية (100)، العربية (100)، الإسلامية (60)، التاريخ (40)'
-                 }
-               </p>
-               <p>
-                 {language === 'en'
-                   ? '• The percentage shown is 30% of your total score (out of 300 marks)'
-                   : '• النسبة المئوية المعروضة هي 30% من مجموع درجاتك (من أصل 300 درجة)'
-                 }
-               </p>
-               <p>
-                 {language === 'en'
-                   ? '• For official results, please refer to the Ministry of Education'
-                   : '• للنتائج الرسمية، يرجى الرجوع إلى وزارة التربية والتعليم'
-                 }
-               </p>
-             </div>
-           </div>
+          {/* App Download Section */}
+          <div className="max-w-6xl mx-auto">
+            <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-8 animate-fade-in-up">
+              <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                {language === 'en' ? 'Download Our App' : 'حمل تطبيقنا'}
+              </h3>
+              <div className="text-center">
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.abd.watheq"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white p-8 rounded-xl text-center hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift inline-block"
+                >
+                  <div className="text-4xl mb-3 animate-bounce">📱</div>
+                  <h4 className="font-bold text-lg mb-3">واثق الأول</h4>
+                  <p className="text-sm opacity-90">
+                    {language === 'ar' ? 'حمل التطبيق' : 'Download App'}
+                  </p>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Additional Information */}
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">
+              {language === 'en' ? 'Important Notes' : 'ملاحظات مهمة'}
+            </h3>
+            <div className="space-y-3 text-gray-600">
+              <p>
+                {language === 'en' 
+                  ? '• This calculator is for first year Tawjihi subjects only'
+                  : '• هذه الحاسبة للمواد الأساسية للسنة الأولى فقط'
+                }
+              </p>
+              <p>
+                {language === 'en'
+                  ? '• Marks distribution: English (100), Arabic (100), Islamic (60), History (40)'
+                  : '• توزيع الدرجات: الإنجليزية (100)، العربية (100)، الإسلامية (60)، التاريخ (40)'
+                }
+              </p>
+              <p>
+                {language === 'en'
+                  ? '• The percentage shown is 30% of your total score (out of 300 marks)'
+                  : '• النسبة المئوية المعروضة هي 30% من مجموع درجاتك (من أصل 300 درجة)'
+                }
+              </p>
+              <p>
+                {language === 'en'
+                  ? '• For official results, please refer to the Ministry of Education'
+                  : '• للنتائج الرسمية، يرجى الرجوع إلى وزارة التربية والتعليم'
+                }
+              </p>
+            </div>
+          </div>
         </div>
       </main>
 
-             {/* Footer */}
-       <footer className="bg-gray-800 text-white py-8 mt-12">
-         <div className="container mx-auto px-4 text-center">
-           <p className="text-sm">
-             {t('developed_by')} Tawjihi Calculator Team
-           </p>
-           <div className="mt-4 space-x-4">
-             <a href="#" className="text-blue-400 hover:text-blue-300">
-               {t('contact_us')}
-             </a>
-             <a href="#" className="text-blue-400 hover:text-blue-300">
-               {t('join_groups')}
-             </a>
-           </div>
-         </div>
-       </footer>
+      {/* Footer */}
+      <footer className="bg-gray-800 text-white py-8 mt-12">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-sm">
+            {t('developed_by')} Tawjihi Calculator Team
+          </p>
+          <div className="mt-4 space-x-4">
+            <a href="#" className="text-blue-400 hover:text-blue-300">
+              {t('contact_us')}
+            </a>
+            <a href="#" className="text-blue-400 hover:text-blue-300">
+              {t('join_groups')}
+            </a>
+          </div>
+        </div>
+      </footer>
 
-       {/* Cookie Consent Banner */}
-       {showCookieBanner && (
-         <div className="fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 z-50">
-           <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
-             <div className="mb-4 md:mb-0 md:mr-4">
-               <p className="text-sm">
-                 {language === 'en' 
-                   ? 'We use cookies to improve your experience and remember your language preference.'
-                   : 'نحن نستخدم ملفات تعريف الارتباط لتحسين تجربتك وتذكر تفضيلات اللغة الخاصة بك.'
-                 }
-               </p>
-             </div>
-             <div className="flex space-x-3">
-               <button
-                 onClick={acceptCookies}
-                 className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm"
-               >
-                 {language === 'en' ? 'Accept' : 'قبول'}
-               </button>
-               <button
-                 onClick={declineCookies}
-                 className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors text-sm"
-               >
-                 {language === 'en' ? 'Decline' : 'رفض'}
-               </button>
-             </div>
-           </div>
-         </div>
-       )}
-     </div>
-   )
- }
+      {/* Cookie Consent Banner */}
+      {showCookieBanner && (
+        <div className="fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 z-50">
+          <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
+            <div className="mb-4 md:mb-0 md:mr-4">
+              <p className="text-sm">
+                {language === 'en' 
+                  ? 'We use cookies to improve your experience and remember your language preference.'
+                  : 'نحن نستخدم ملفات تعريف الارتباط لتحسين تجربتك وتذكر تفضيلات اللغة الخاصة بك.'
+                }
+              </p>
+            </div>
+            <div className="flex space-x-3">
+              <button
+                onClick={acceptCookies}
+                className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm"
+              >
+                {language === 'en' ? 'Accept' : 'قبول'}
+              </button>
+              <button
+                onClick={declineCookies}
+                className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors text-sm"
+              >
+                {language === 'en' ? 'Decline' : 'رفض'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
