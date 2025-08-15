@@ -30,14 +30,8 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
   
   const doc = new jsPDF()
   
-  // Set font for Arabic support
-  if (language === 'ar') {
-    doc.addFont('https://fonts.gstatic.com/s/notosansarabic/v18/nwpCt6W9KfF6gV1yPu9T3JqJPNmdf1lJF3Ovg.woff2', 'NotoSansArabic', 'normal')
-    doc.setFont('NotoSansArabic')
-  }
-  
   // Title
-  const title = language === 'ar' ? 'شهادة نتيجة التوجيهي' : 'Tawjihi Result Certificate'
+  const title = language === 'ar' ? 'Tawjihi Result Certificate' : 'Tawjihi Result Certificate'
   doc.setFontSize(20)
   doc.text(title, 105, 20, { align: 'center' })
   
@@ -52,7 +46,14 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
     const subjectName = getSubjectName(subject.name, language)
     const score = `${subject.score}/${subject.maxMarks}`
     
-    doc.text(subjectName, 30, yPosition)
+    // For Arabic, use English labels but keep Arabic subject names
+    const displayName = language === 'ar' ? 
+      (subject.name === 'english' ? 'English' :
+       subject.name === 'arabic' ? 'Arabic' :
+       subject.name === 'islamic' ? 'Islamic' :
+       subject.name === 'history' ? 'History' : subject.name) : subjectName
+    
+    doc.text(displayName, 30, yPosition)
     doc.text(score, 150, yPosition)
     yPosition += 10
   })
@@ -61,7 +62,7 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
   doc.line(20, yPosition + 5, 190, yPosition + 5)
   yPosition += 15
   
-  const totalLabel = language === 'ar' ? 'المجموع الكلي' : 'Total Score'
+  const totalLabel = 'Total Score'
   const totalScore = `${result.totalScore}/300`
   
   doc.setFontSize(14)
@@ -72,7 +73,7 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
   // Percentage result
   yPosition += 20
   doc.setFontSize(16)
-  const percentageLabel = language === 'ar' ? 'نسبة السنة الأولى (30%)' : 'First Year Percentage (30%)'
+  const percentageLabel = 'First Year Percentage (30%)'
   const percentage = `${result.percentage.toFixed(2)}%`
   
   doc.text(percentageLabel, 30, yPosition)
@@ -81,7 +82,7 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
   // Footer
   doc.setFontSize(10)
   doc.setFont('helvetica', 'normal')
-  const footer = language === 'ar' ? 'تم التطوير بواسطة عبدالرحمن الشباطات' : 'Developed by Abdlarahman Alshabatat'
+  const footer = 'Developed by Abdlarahman Alshabatat'
   doc.text(footer, 105, 270, { align: 'center' })
   
   // Save the PDF
