@@ -205,7 +205,7 @@ export default function Home() {
                   ))}
                 </div>
 
-                                 <div className={`flex justify-center mt-10 ${language === 'ar' ? 'space-x-48' : 'space-x-12'}`}>
+                                 <div className="flex justify-center mt-10 space-x-12">
                   <button
                     onClick={calculateResult}
                     className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-12 py-4 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold text-lg"
