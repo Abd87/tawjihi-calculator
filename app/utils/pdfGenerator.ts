@@ -248,12 +248,11 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
            }
            URL.revokeObjectURL(url)
          }, 10000)
-       } else {
-         // Keep the URL object alive for longer
-         setTimeout(() => {
-           URL.revokeObjectURL(url)
-         }, 30000)
-       }
+               } else {
+          // Keep the URL object alive indefinitely for mobile users
+          // Don't revoke the URL - let the user control when to close the tab
+          // The URL will be cleaned up when the user closes the tab or navigates away
+        }
      }
     } else {
       // For desktop devices, use download approach

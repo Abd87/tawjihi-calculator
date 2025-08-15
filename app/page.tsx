@@ -287,12 +287,12 @@ export default function Home() {
                          button.disabled = true
                          
                                                    // Show mobile instruction if needed
-                          if (isMobile) {
-                            const instruction = language === 'en' 
-                              ? 'PDF will open in a new tab. To save:\n\n1. Look for the share button (📤) in your browser\n2. Or tap the menu (⋮) and select "Share"\n3. Choose "Save to Files" or "Download"\n4. The PDF will stay open for 30 seconds'
-                              : 'سيتم فتح PDF في تبويب جديد. للحفظ:\n\n1. ابحث عن زر المشاركة (📤) في المتصفح\n2. أو اضغط على القائمة (⋮) واختر "مشاركة"\n3. اختر "حفظ في الملفات" أو "تحميل"\n4. سيبقى PDF مفتوحاً لمدة 30 ثانية'
-                            alert(instruction)
-                          }
+                                                     if (isMobile) {
+                             const instruction = language === 'en' 
+                               ? 'PDF will open in a new tab. To save:\n\n1. Look for the share button (📤) in your browser\n2. Or tap the menu (⋮) and select "Share"\n3. Choose "Save to Files" or "Download"\n4. The PDF will stay open until you close it'
+                               : 'سيتم فتح PDF في تبويب جديد. للحفظ:\n\n1. ابحث عن زر المشاركة (📤) في المتصفح\n2. أو اضغط على القائمة (⋮) واختر "مشاركة"\n3. اختر "حفظ في الملفات" أو "تحميل"\n4. سيبقى PDF مفتوحاً حتى تقوم بإغلاقه'
+                             alert(instruction)
+                           }
                         
                                                  generatePDF(subjects, result, language, studentName)
                            .then(() => {
