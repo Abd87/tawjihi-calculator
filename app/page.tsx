@@ -44,9 +44,11 @@ export default function Home() {
   }
 
   const updateSubjectScore = (index: number, score: number) => {
-    const newSubjects = [...subjects]
-    newSubjects[index].score = Math.min(score, newSubjects[index].maxMarks)
-    setSubjects(newSubjects)
+    setSubjects(prevSubjects => {
+      const newSubjects = [...prevSubjects]
+      newSubjects[index].score = Math.min(score, newSubjects[index].maxMarks)
+      return newSubjects
+    })
   }
 
   const calculateResult = () => {
@@ -57,7 +59,7 @@ export default function Home() {
   }
 
   const resetCalculator = () => {
-    setSubjects(subjects.map(subject => ({ ...subject, score: 0 })))
+    setSubjects(prevSubjects => prevSubjects.map(subject => ({ ...subject, score: 0 })))
     setResult(null)
   }
 
@@ -126,9 +128,9 @@ export default function Home() {
                {language === 'en' ? 'Enter Your Scores' : 'أدخل درجاتك'}
              </h3>
             
-                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-               {subjects.map((subject, index) => (
-                 <div key={subject.name} className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-200/50 hover:shadow-lg transition-all duration-300 transform hover:scale-105 animate-fade-in-up" style={{animationDelay: `${index * 100}ms`}}>
+                                                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {subjects.map((subject, index) => (
+                  <div key={subject.name} className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-200/50 hover:shadow-lg transition-all duration-200 transform hover:scale-102">
                    <label className="block text-lg font-semibold text-gray-800 mb-3">
                      {t(subject.name)}
                    </label>
