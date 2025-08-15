@@ -21,9 +21,6 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
   
   const doc = new jsPDF()
   
-  // For Arabic support, we'll use a different approach
-  // Since Arabic fonts are complex to embed, we'll use English labels but keep Arabic content where needed
-  
   // Title
   const title = 'Tawjihi Result Certificate'
   doc.setFontSize(24)
@@ -55,130 +52,153 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
   const currentDate = new Date().toLocaleDateString()
   doc.text(currentDate, 80, 65)
   
-  // Table header
+  // Professional Table Design
+  const tableStartX = 20
+  const tableEndX = 190
+  const tableStartY = 80
+  const rowHeight = 12
+  const cellPadding = 5
+  
+  // Column positions
+  const col1X = tableStartX + cellPadding
+  const col2X = 70 + cellPadding
+  const col3X = 110 + cellPadding
+  const col4X = 150 + cellPadding
+  
+  // Column widths
+  const col1Width = 50
+  const col2Width = 30
+  const col3Width = 30
+  const col4Width = 40
+  
+  // Draw table header
   doc.setFontSize(12)
   doc.setFont('helvetica', 'bold')
   
-  // Define table dimensions
-  const tableStartX = 20
-  const tableEndX = 190
-  const subjectColX = 30
-  const scoreColX = 120
-  const maxColX = 150
-  const percentageColX = 170
+  // Header background (light gray)
+  doc.setFillColor(240, 240, 240)
+  doc.rect(tableStartX, tableStartY, tableEndX - tableStartX, rowHeight, 'F')
   
-  // Draw table header
-  doc.text('Subject', subjectColX, 85)
-  doc.text('Score', scoreColX, 85)
-  doc.text('Max', maxColX, 85)
-  doc.text('Percentage', percentageColX, 85)
+  // Header text
+  doc.setTextColor(0, 0, 0)
+  doc.text('Subject', col1X, tableStartY + 8)
+  doc.text('Score', col2X, tableStartY + 8)
+  doc.text('Max', col3X, tableStartY + 8)
+  doc.text('Percentage', col4X, tableStartY + 8)
   
-  // Draw top border
-  doc.line(tableStartX, 90, tableEndX, 90)
+  // Header border
+  doc.setDrawColor(100, 100, 100)
+  doc.setLineWidth(0.5)
+  doc.rect(tableStartX, tableStartY, tableEndX - tableStartX, rowHeight)
   
-  // Draw vertical lines for columns
-  doc.line(subjectColX - 5, 85, subjectColX - 5, 90) // Left border
-  doc.line(scoreColX - 5, 85, scoreColX - 5, 90)     // Score column left
-  doc.line(maxColX - 5, 85, maxColX - 5, 90)         // Max column left
-  doc.line(percentageColX - 5, 85, percentageColX - 5, 90) // Percentage column left
-  doc.line(tableEndX, 85, tableEndX, 90)             // Right border
+  // Draw vertical lines for header
+  doc.line(col2X - cellPadding, tableStartY, col2X - cellPadding, tableStartY + rowHeight)
+  doc.line(col3X - cellPadding, tableStartY, col3X - cellPadding, tableStartY + rowHeight)
+  doc.line(col4X - cellPadding, tableStartY, col4X - cellPadding, tableStartY + rowHeight)
   
-  // Subject scores in table format
+  // Subject rows
   doc.setFont('helvetica', 'normal')
-  let yPosition = 105
+  doc.setTextColor(0, 0, 0)
+  let currentY = tableStartY + rowHeight
   
-  subjects.forEach((subject) => {
+  subjects.forEach((subject, index) => {
     const subjectName = getSubjectName(subject.name, language)
     const score = subject.score.toString()
     const maxMarks = subject.maxMarks.toString()
     const percentage = ((subject.score / subject.maxMarks) * 100).toFixed(1) + '%'
     
-    // Draw horizontal line for each row
-    doc.line(tableStartX, yPosition - 5, tableEndX, yPosition - 5)
+    // Alternate row colors
+    if (index % 2 === 0) {
+      doc.setFillColor(248, 249, 250)
+      doc.rect(tableStartX, currentY, tableEndX - tableStartX, rowHeight, 'F')
+    } else {
+      doc.setFillColor(255, 255, 255)
+      doc.rect(tableStartX, currentY, tableEndX - tableStartX, rowHeight, 'F')
+    }
     
-    // Draw vertical lines for each row
-    doc.line(subjectColX - 5, yPosition - 10, subjectColX - 5, yPosition - 5)
-    doc.line(scoreColX - 5, yPosition - 10, scoreColX - 5, yPosition - 5)
-    doc.line(maxColX - 5, yPosition - 10, maxColX - 5, yPosition - 5)
-    doc.line(percentageColX - 5, yPosition - 10, percentageColX - 5, yPosition - 5)
-    doc.line(tableEndX, yPosition - 10, tableEndX, yPosition - 5)
+    // Row border
+    doc.setDrawColor(200, 200, 200)
+    doc.rect(tableStartX, currentY, tableEndX - tableStartX, rowHeight)
     
-    doc.text(subjectName, subjectColX, yPosition)
-    doc.text(score, scoreColX, yPosition)
-    doc.text(maxMarks, maxColX, yPosition)
-    doc.text(percentage, percentageColX, yPosition)
-    yPosition += 10
+    // Vertical lines
+    doc.line(col2X - cellPadding, currentY, col2X - cellPadding, currentY + rowHeight)
+    doc.line(col3X - cellPadding, currentY, col3X - cellPadding, currentY + rowHeight)
+    doc.line(col4X - cellPadding, currentY, col4X - cellPadding, currentY + rowHeight)
+    
+    // Cell content
+    doc.text(subjectName, col1X, currentY + 8)
+    doc.text(score, col2X, currentY + 8)
+    doc.text(maxMarks, col3X, currentY + 8)
+    doc.text(percentage, col4X, currentY + 8)
+    
+    currentY += rowHeight
   })
   
-  // Total row with thicker border
-  doc.line(tableStartX, yPosition + 2, tableEndX, yPosition + 2)
-  
-  // Draw vertical lines for total row
-  doc.line(subjectColX - 5, yPosition - 8, subjectColX - 5, yPosition + 2)
-  doc.line(scoreColX - 5, yPosition - 8, scoreColX - 5, yPosition + 2)
-  doc.line(maxColX - 5, yPosition - 8, maxColX - 5, yPosition + 2)
-  doc.line(percentageColX - 5, yPosition - 8, percentageColX - 5, yPosition + 2)
-  doc.line(tableEndX, yPosition - 8, tableEndX, yPosition + 2)
-  
-  yPosition += 10
+  // Total row with special styling
+  doc.setFillColor(52, 73, 94)
+  doc.rect(tableStartX, currentY, tableEndX - tableStartX, rowHeight, 'F')
   
   doc.setFont('helvetica', 'bold')
+  doc.setTextColor(255, 255, 255)
+  
   const totalLabel = 'Total'
   const totalScore = result.totalScore.toString()
   const totalMax = '300'
   const totalPercentage = ((result.totalScore / 300) * 100).toFixed(1) + '%'
   
-  doc.text(totalLabel, subjectColX, yPosition)
-  doc.text(totalScore, scoreColX, yPosition)
-  doc.text(totalMax, maxColX, yPosition)
-  doc.text(totalPercentage, percentageColX, yPosition)
+  // Total row border
+  doc.setDrawColor(52, 73, 94)
+  doc.setLineWidth(1)
+  doc.rect(tableStartX, currentY, tableEndX - tableStartX, rowHeight)
   
-  // Draw bottom border for total row
-  doc.line(tableStartX, yPosition + 5, tableEndX, yPosition + 5)
+  // Vertical lines for total row
+  doc.line(col2X - cellPadding, currentY, col2X - cellPadding, currentY + rowHeight)
+  doc.line(col3X - cellPadding, currentY, col3X - cellPadding, currentY + rowHeight)
+  doc.line(col4X - cellPadding, currentY, col4X - cellPadding, currentY + rowHeight)
   
-  // Draw final vertical lines
-  doc.line(subjectColX - 5, yPosition, subjectColX - 5, yPosition + 5)
-  doc.line(scoreColX - 5, yPosition, scoreColX - 5, yPosition + 5)
-  doc.line(maxColX - 5, yPosition, maxColX - 5, yPosition + 5)
-  doc.line(percentageColX - 5, yPosition, percentageColX - 5, yPosition + 5)
-  doc.line(tableEndX, yPosition, tableEndX, yPosition + 5)
+  doc.text(totalLabel, col1X, currentY + 8)
+  doc.text(totalScore, col2X, currentY + 8)
+  doc.text(totalMax, col3X, currentY + 8)
+  doc.text(totalPercentage, col4X, currentY + 8)
+  
+  currentY += rowHeight + 20
   
   // Final percentage result
-  yPosition += 20
   doc.setFontSize(16)
   doc.setFont('helvetica', 'bold')
+  doc.setTextColor(0, 0, 0)
   const finalLabel = 'First Year Percentage (30%)'
   const finalPercentage = `${result.percentage.toFixed(2)}%`
   
-  doc.text(finalLabel, 30, yPosition)
-  doc.text(finalPercentage, 150, yPosition)
+  doc.text(finalLabel, 30, currentY)
+  doc.text(finalPercentage, 150, currentY)
   
   // Contact information
-  yPosition += 30
+  currentY += 30
   doc.setFontSize(12)
   doc.setFont('helvetica', 'bold')
   const contactLabel = 'Contact Information:'
-  doc.text(contactLabel, 30, yPosition)
+  doc.text(contactLabel, 30, currentY)
   
-  yPosition += 10
+  currentY += 10
   doc.setFont('helvetica', 'normal')
-  doc.text('Developer: Abdlarahman Alshabatat', 30, yPosition)
+  doc.text('Developer: Abdlarahman Alshabatat', 30, currentY)
   
-  yPosition += 8
-  doc.text('Email: ashbatat@gmail.com', 30, yPosition)
+  currentY += 8
+  doc.text('Email: ashbatat@gmail.com', 30, currentY)
   
-  yPosition += 8
-  doc.text('Phone: +962 79 088 1392', 30, yPosition)
+  currentY += 8
+  doc.text('Phone: +962 79 088 1392', 30, currentY)
   
   // Website information
-  yPosition += 15
+  currentY += 15
   doc.setFont('helvetica', 'bold')
   const websiteLabel = 'Visit our website:'
-  doc.text(websiteLabel, 30, yPosition)
+  doc.text(websiteLabel, 30, currentY)
   
-  yPosition += 8
+  currentY += 8
   doc.setFont('helvetica', 'normal')
-  doc.text(website, 30, yPosition)
+  doc.text(website, 30, currentY)
   
   // Footer
   doc.setFontSize(10)
