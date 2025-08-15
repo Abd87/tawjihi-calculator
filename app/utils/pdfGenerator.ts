@@ -211,22 +211,50 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
     // Check if it's a mobile device
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
     
-    if (isMobile) {
-      // For mobile devices, open PDF in new tab
-      const pdfBlob = doc.output('blob')
-      const url = URL.createObjectURL(pdfBlob)
-      
-      // Open in new tab for mobile users
-      const newWindow = window.open(url, '_blank')
-      
-      // Clean up the URL object after a delay
-      setTimeout(() => {
-        URL.revokeObjectURL(url)
-        // If window is still open, close it after 5 seconds
-        if (newWindow && !newWindow.closed) {
-          setTimeout(() => newWindow.close(), 5000)
-        }
-      }, 2000)
+         if (isMobile) {
+       // For mobile devices, try multiple approaches
+       const pdfBlob = doc.output('blob')
+       const url = URL.createObjectURL(pdfBlob)
+       
+       // First, try to open in new tab
+       const newWindow = window.open(url, '_blank')
+       
+       // If popup was blocked, create a visible download link
+       if (!newWindow) {
+         const link = document.createElement('a')
+         link.href = url
+         link.download = `tawjihi-result-${studentName}-${Date.now()}.pdf`
+         link.textContent = 'Click here to download PDF'
+         link.style.cssText = `
+           position: fixed;
+           top: 50%;
+           left: 50%;
+           transform: translate(-50%, -50%);
+           background: #4CAF50;
+           color: white;
+           padding: 20px;
+           border-radius: 10px;
+           text-decoration: none;
+           font-size: 18px;
+           z-index: 10000;
+           box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+         `
+         document.body.appendChild(link)
+         
+         // Remove the link after 10 seconds
+         setTimeout(() => {
+           if (document.body.contains(link)) {
+             document.body.removeChild(link)
+           }
+           URL.revokeObjectURL(url)
+         }, 10000)
+       } else {
+         // Keep the URL object alive for longer
+         setTimeout(() => {
+           URL.revokeObjectURL(url)
+         }, 30000)
+       }
+     }
     } else {
       // For desktop devices, use download approach
       const pdfBlob = doc.output('blob')
