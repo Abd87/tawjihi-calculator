@@ -152,7 +152,7 @@ export default function Home() {
                    onClick={() => generatePDF(subjects, result, language)}
                    className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
                  >
-                   {language === 'en' ? 'Download Result' : 'تحميل النتيجة'}
+                   {t('download_pdf')}
                  </button>
                </div>
             </div>
