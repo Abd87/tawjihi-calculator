@@ -80,7 +80,7 @@ export default function Home() {
                 <span className="font-semibold">
                   {language === 'en' ? 'Developer:' : 'المطور:'}
                 </span>
-                <span>عبد الرحمن الشبطات</span>
+                                 <span>عبدالرحمن الشباطات</span>
               </div>
               <div className="flex items-center space-x-2">
                 <span>📧</span>
@@ -323,7 +323,7 @@ export default function Home() {
        <footer className="bg-gray-800 text-white py-8 mt-12">
          <div className="container mx-auto px-4 text-center">
            <p className="text-sm">
-             {t('developed_by')} عبد الرحمن الشبطات - 2025-2026
+                           {t('developed_by')} عبدالرحمن الشباطات - 2025-2026
            </p>
            <div className="mt-4 space-x-4">
              <a href="mailto:ashbatat@gmail.com" className="text-blue-400 hover:text-blue-300">

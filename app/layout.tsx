@@ -125,12 +125,12 @@ export default function RootLayout({
                    },
                    "author": {
                      "@type": "Person",
-                     "name": "Abdlarahman Alshabatat",
+                     "name": "عبدالرحمن الشباطات",
                      "email": "ashbatat@gmail.com"
                    },
                    "creator": {
                      "@type": "Person",
-                     "name": "Abdlarahman Alshabatat"
+                     "name": "عبدالرحمن الشباطات"
                    },
                    "publisher": {
                      "@type": "Organization",
