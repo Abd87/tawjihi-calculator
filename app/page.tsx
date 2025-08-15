@@ -99,11 +99,11 @@ export default function Home() {
            </div>
            
                        {/* Main Title */}
-            <div className="flex justify-center">
-              <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent animate-spin-slow">
-                {t('title')}
-              </h1>
-            </div>
+                         <div className="flex justify-center">
+               <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent animate-title-glow">
+                 {t('title')}
+               </h1>
+             </div>
          </div>
        </header>
 
@@ -121,9 +121,43 @@ export default function Home() {
            </p>
          </div>
 
-                 {/* Calculator Section */}
-         <div className="max-w-4xl mx-auto">
-           <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-8 animate-fade-in-up">
+                                   {/* Calculator Section */}
+          <div className="max-w-6xl mx-auto">
+            <div className="flex flex-col lg:flex-row gap-8">
+              {/* Social Media Links - Left Side */}
+              <div className="lg:w-1/4 space-y-4">
+                {/* WhatsApp Group */}
+                <a
+                  href="https://chat.whatsapp.com/IYDbChe9mByEe2Ayy5rUfP?mode=ac_t"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gradient-to-br from-green-500 to-green-600 text-white p-6 rounded-xl text-center hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift block"
+                >
+                  <div className="text-3xl mb-3 animate-bounce">📱</div>
+                  <h4 className="font-bold text-lg mb-2">WhatsApp</h4>
+                  <p className="text-sm opacity-90">
+                    مجموعة واتساب للتوجيهي
+                  </p>
+                </a>
+
+                {/* Instagram */}
+                <a
+                  href="https://www.instagram.com/alwatheq_interactive/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 text-white p-6 rounded-xl text-center hover:from-purple-600 hover:via-pink-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift block"
+                >
+                  <div className="text-3xl mb-3 animate-pulse">📸</div>
+                  <h4 className="font-bold text-lg mb-2">Instagram</h4>
+                  <p className="text-sm opacity-90">
+                    انضم إلينا على الإنستغرام
+                  </p>
+                </a>
+              </div>
+
+              {/* Calculator - Right Side */}
+              <div className="lg:w-3/4">
+                <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-8 animate-fade-in-up">
              <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                {language === 'en' ? 'Enter Your Scores' : 'أدخل درجاتك'}
              </h3>
@@ -165,96 +199,72 @@ export default function Home() {
                >
                  {language === 'en' ? 'Reset' : 'إعادة تعيين'}
                </button>
-             </div>
-          </div>
-
-                     {/* Results Section */}
-           {result && (
-             <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-8 animate-fade-in-up">
-               <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-                 {t('result')}
-               </h3>
-              
-                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                 <div className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl p-8 text-center hover-lift animate-pulse">
-                   <h4 className="text-xl font-semibold text-blue-800 mb-4">
-                     {t('total_score')}
-                   </h4>
-                   <p className="text-5xl font-bold text-blue-600">
-                     {result.totalScore}
-                   </p>
-                 </div>
-                 
-                 <div className="bg-gradient-to-br from-green-100 to-green-200 rounded-xl p-8 text-center hover-lift animate-pulse">
-                   <h4 className="text-xl font-semibold text-green-800 mb-4">
-                     {t('percentage')}
-                   </h4>
-                   <p className="text-5xl font-bold text-green-600">
-                     {result.percentage.toFixed(2)}%
-                   </p>
-                 </div>
-               </div>
-
-                                                           <div className="mt-8 text-center">
-                  <button 
-                    onClick={() => generatePDF(subjects, result, language)}
-                    className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold text-lg animate-bounce"
-                  >
-                    📄 {t('download_pdf')}
-                  </button>
-                </div>
+                             </div>
+              </div>
             </div>
-          )}
 
-                                           {/* Social Links Section */}
-            <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-8 animate-fade-in-up">
-              <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                {language === 'en' ? 'Join Our Community' : 'انضم لمجتمعنا'}
-              </h3>
-             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                               {/* WhatsApp Group */}
-                <a
-                  href="https://chat.whatsapp.com/IYDbChe9mByEe2Ayy5rUfP?mode=ac_t"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-gradient-to-br from-green-500 to-green-600 text-white p-8 rounded-xl text-center hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift"
-                >
-                  <div className="text-4xl mb-3 animate-bounce">📱</div>
-                  <h4 className="font-bold text-lg mb-3">WhatsApp</h4>
-                  <p className="text-sm opacity-90">
-                    {language === 'ar' ? 'انضم لمجموعة الواتساب' : 'Join WhatsApp Group'}
-                  </p>
-                </a>
+            {/* Results Section */}
+            {result && (
+              <div className="max-w-6xl mx-auto">
+                <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-8 animate-fade-in-up">
+                  <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+                    {t('result')}
+                  </h3>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl p-8 text-center hover-lift animate-pulse">
+                      <h4 className="text-xl font-semibold text-blue-800 mb-4">
+                        {t('total_score')}
+                      </h4>
+                      <p className="text-5xl font-bold text-blue-600">
+                        {result.totalScore}
+                      </p>
+                    </div>
+                    
+                    <div className="bg-gradient-to-br from-green-100 to-green-200 rounded-xl p-8 text-center hover-lift animate-pulse">
+                      <h4 className="text-xl font-semibold text-green-800 mb-4">
+                        {t('percentage')}
+                      </h4>
+                      <p className="text-5xl font-bold text-green-600">
+                        {result.percentage.toFixed(2)}%
+                      </p>
+                    </div>
+                  </div>
 
-                               {/* Instagram */}
-                <a
-                  href="https://www.instagram.com/alwatheq_interactive/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 text-white p-8 rounded-xl text-center hover:from-purple-600 hover:via-pink-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift"
-                >
-                  <div className="text-4xl mb-3 animate-pulse">📸</div>
-                  <h4 className="font-bold text-lg mb-3">Instagram</h4>
-                  <p className="text-sm opacity-90">
-                    {language === 'ar' ? 'تابع على الإنستغرام' : 'Follow on Instagram'}
-                  </p>
-                </a>
+                  <div className="mt-8 text-center">
+                    <button 
+                      onClick={() => generatePDF(subjects, result, language)}
+                      className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold text-lg animate-bounce"
+                    >
+                      📄 {t('download_pdf')}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
 
-                               {/* App Download */}
-                <a
-                  href="https://play.google.com/store/apps/details?id=com.abd.watheq"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white p-8 rounded-xl text-center hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift"
-                >
-                  <div className="text-4xl mb-3 animate-bounce">📱</div>
-                  <h4 className="font-bold text-lg mb-3">واثق الأول</h4>
-                  <p className="text-sm opacity-90">
-                    {language === 'ar' ? 'حمل التطبيق' : 'Download App'}
-                  </p>
-                </a>
-             </div>
-           </div>
+            {/* App Download Section */}
+            <div className="max-w-6xl mx-auto">
+              <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-8 animate-fade-in-up">
+                <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                  {language === 'en' ? 'Download Our App' : 'حمل تطبيقنا'}
+                </h3>
+                <div className="text-center">
+                  <a
+                    href="https://play.google.com/store/apps/details?id=com.abd.watheq"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white p-8 rounded-xl text-center hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift inline-block"
+                  >
+                    <div className="text-4xl mb-3 animate-bounce">📱</div>
+                    <h4 className="font-bold text-lg mb-3">واثق الأول</h4>
+                    <p className="text-sm opacity-90">
+                      {language === 'ar' ? 'حمل التطبيق' : 'Download App'}
+                    </p>
+                  </a>
+                </div>
+              </div>
+            </div>
 
            {/* Additional Information */}
            <div className="bg-white rounded-xl shadow-lg p-6">

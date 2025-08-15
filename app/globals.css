@@ -92,12 +92,12 @@ body {
   }
 }
 
-@keyframes spinSlow {
-  from {
-    transform: rotate(0deg);
+@keyframes titleGlow {
+  0%, 100% {
+    text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    text-shadow: 0 0 30px rgba(147, 51, 234, 0.8), 0 0 40px rgba(99, 102, 241, 0.6);
   }
 }
 
@@ -132,9 +132,9 @@ body {
   will-change: transform;
 }
 
-.animate-spin-slow {
-  animation: spinSlow 4s linear infinite;
-  will-change: transform;
+.animate-title-glow {
+  animation: titleGlow 3s ease-in-out infinite;
+  will-change: text-shadow;
 }
 
 /* Performance optimizations */
@@ -150,7 +150,7 @@ body {
   .animate-fade-in-up,
   .animate-pulse,
   .animate-bounce,
-  .animate-spin-slow {
+  .animate-title-glow {
     animation: none !important;
   }
 }
