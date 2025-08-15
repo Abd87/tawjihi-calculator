@@ -9,7 +9,12 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Tawjihi Calculator - حاسبة التوجيهي',
   description: 'Calculate your first year Tawjihi percentage - احسب نسبة التوجيهي للسنة الأولى',
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
+}
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
   themeColor: '#3B82F6',
 }
 
