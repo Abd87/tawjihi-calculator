@@ -84,52 +84,105 @@ const getSubjectName = (subjectName: string, language: string) => {
 }
 
 export const generatePDF = async (subjects: Subject[], result: { totalScore: number; percentage: number }, language: string) => {
-  const MyDocument = () => {
-    return (
-      <Document>
-        <Page size="A4" style={styles.page}>
-          <View style={styles.header}>
-            <Text>{language === 'ar' ? 'شهادة نتيجة التوجيهي' : 'Tawjihi Result Certificate'}</Text>
-          </View>
+  try {
+    const MyDocument = Document({
+      children: [
+        Page({
+          size: 'A4',
+          style: styles.page,
+          children: [
+            View({
+              style: styles.header,
+              children: [
+                Text({
+                  children: language === 'ar' ? 'شهادة نتيجة التوجيهي' : 'Tawjihi Result Certificate'
+                })
+              ]
+            }),
+            View({
+              style: styles.section,
+              children: [
+                ...subjects.map((subject) =>
+                  View({
+                    key: subject.name,
+                    style: styles.row,
+                    children: [
+                      Text({
+                        style: styles.label,
+                        children: getSubjectName(subject.name, language)
+                      }),
+                      Text({
+                        style: styles.value,
+                        children: `${subject.score}/${subject.maxMarks}`
+                      })
+                    ]
+                  })
+                ),
+                View({
+                  style: styles.row,
+                  children: [
+                    Text({
+                      style: styles.label,
+                      children: language === 'ar' ? 'المجموع الكلي' : 'Total Score'
+                    }),
+                    Text({
+                      style: styles.value,
+                      children: `${result.totalScore}/300`
+                    })
+                  ]
+                })
+              ]
+            }),
+            View({
+              style: styles.result,
+              children: [
+                Text({
+                  style: styles.resultText,
+                  children: `${language === 'ar' ? 'نسبة السنة الأولى (30%)' : 'First Year Percentage (30%)'}: ${result.percentage.toFixed(2)}%`
+                })
+              ]
+            }),
+            View({
+              style: styles.footer,
+              children: [
+                Text({
+                  children: language === 'ar' ? 'تم التطوير بواسطة عبدالرحمن الشباطات' : 'Developed by Abdlarahman Alshabatat'
+                })
+              ]
+            })
+          ]
+        })
+      ]
+    })
 
-          <View style={styles.section}>
-            {subjects.map((subject) => (
-              <View key={subject.name} style={styles.row}>
-                <Text style={styles.label}>
-                  {getSubjectName(subject.name, language)}
-                </Text>
-                <Text style={styles.value}>{subject.score}/{subject.maxMarks}</Text>
-              </View>
-            ))}
-            <View style={styles.row}>
-              <Text style={styles.label}>
-                {language === 'ar' ? 'المجموع الكلي' : 'Total Score'}
-              </Text>
-              <Text style={styles.value}>{result.totalScore}/300</Text>
-            </View>
-          </View>
+    const blob = await pdf(MyDocument).toBlob()
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `tawjihi-result-${Date.now()}.pdf`
+    link.click()
+    URL.revokeObjectURL(url)
+  } catch (error) {
+    console.error('PDF generation failed:', error)
+    // Fallback: create a simple text file
+    const content = `
+Tawjihi Result Certificate
+==========================
 
-          <View style={styles.result}>
-            <Text style={styles.resultText}>
-              {language === 'ar' ? 'نسبة السنة الأولى (30%)' : 'First Year Percentage (30%)'}: {result.percentage.toFixed(2)}%
-            </Text>
-          </View>
+${subjects.map(subject => `${getSubjectName(subject.name, language)}: ${subject.score}/${subject.maxMarks}`).join('\n')}
 
-          <View style={styles.footer}>
-            <Text>
-              {language === 'ar' ? 'تم التطوير بواسطة عبدالرحمن الشباطات' : 'Developed by Abdlarahman Alshabatat'}
-            </Text>
-          </View>
-        </Page>
-      </Document>
-    )
+Total Score: ${result.totalScore}/300
+First Year Percentage (30%): ${result.percentage.toFixed(2)}%
+
+Developed by Abdlarahman Alshabatat
+    `.trim()
+    
+    const blob = new Blob([content], { type: 'text/plain' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `tawjihi-result-${Date.now()}.txt`
+    link.click()
+    URL.revokeObjectURL(url)
   }
-
-  const blob = await pdf(<MyDocument />).toBlob()
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.href = url
-  link.download = `tawjihi-result-${Date.now()}.pdf`
-  link.click()
-  URL.revokeObjectURL(url)
 }
