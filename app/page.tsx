@@ -277,17 +277,41 @@ export default function Home() {
                        />
                      </div>
                    )}
-                   <button 
-                     onClick={() => generatePDF(subjects, result, language, studentName)}
-                     disabled={!studentName.trim()}
-                     className={`px-8 py-4 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold text-lg animate-bounce ${
-                       studentName.trim() 
-                         ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700' 
-                         : 'bg-gray-400 text-gray-600 cursor-not-allowed'
-                     }`}
-                   >
-                     📄 {t('download_pdf')}
-                   </button>
+                                       <button 
+                      onClick={() => {
+                        // Show loading state
+                        const button = event?.target as HTMLButtonElement
+                        const originalText = button.innerHTML
+                        button.innerHTML = '⏳ ' + (language === 'en' ? 'Generating PDF...' : 'جاري إنشاء PDF...')
+                        button.disabled = true
+                        
+                        generatePDF(subjects, result, language, studentName)
+                          .then(() => {
+                            // Success - restore button
+                            button.innerHTML = '✅ ' + (language === 'en' ? 'PDF Downloaded!' : 'تم تحميل PDF!')
+                            setTimeout(() => {
+                              button.innerHTML = originalText
+                              button.disabled = false
+                            }, 2000)
+                          })
+                          .catch((error) => {
+                            // Error - restore button
+                            button.innerHTML = '❌ ' + (language === 'en' ? 'Download Failed' : 'فشل التحميل')
+                            setTimeout(() => {
+                              button.innerHTML = originalText
+                              button.disabled = false
+                            }, 2000)
+                          })
+                      }}
+                      disabled={!studentName.trim()}
+                      className={`px-8 py-4 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold text-lg animate-bounce ${
+                        studentName.trim() 
+                          ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700' 
+                          : 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                      }`}
+                    >
+                      📄 {t('download_pdf')}
+                    </button>
                  </div>
               </div>
             </div>
