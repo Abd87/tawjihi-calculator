@@ -58,13 +58,30 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
   // Table header
   doc.setFontSize(12)
   doc.setFont('helvetica', 'bold')
-  doc.text('Subject', 30, 85)
-  doc.text('Score', 120, 85)
-  doc.text('Max', 150, 85)
-  doc.text('Percentage', 170, 85)
   
-  // Table line
-  doc.line(20, 90, 190, 90)
+  // Define table dimensions
+  const tableStartX = 20
+  const tableEndX = 190
+  const subjectColX = 30
+  const scoreColX = 120
+  const maxColX = 150
+  const percentageColX = 170
+  
+  // Draw table header
+  doc.text('Subject', subjectColX, 85)
+  doc.text('Score', scoreColX, 85)
+  doc.text('Max', maxColX, 85)
+  doc.text('Percentage', percentageColX, 85)
+  
+  // Draw top border
+  doc.line(tableStartX, 90, tableEndX, 90)
+  
+  // Draw vertical lines for columns
+  doc.line(subjectColX - 5, 85, subjectColX - 5, 90) // Left border
+  doc.line(scoreColX - 5, 85, scoreColX - 5, 90)     // Score column left
+  doc.line(maxColX - 5, 85, maxColX - 5, 90)         // Max column left
+  doc.line(percentageColX - 5, 85, percentageColX - 5, 90) // Percentage column left
+  doc.line(tableEndX, 85, tableEndX, 90)             // Right border
   
   // Subject scores in table format
   doc.setFont('helvetica', 'normal')
@@ -76,15 +93,33 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
     const maxMarks = subject.maxMarks.toString()
     const percentage = ((subject.score / subject.maxMarks) * 100).toFixed(1) + '%'
     
-    doc.text(subjectName, 30, yPosition)
-    doc.text(score, 120, yPosition)
-    doc.text(maxMarks, 150, yPosition)
-    doc.text(percentage, 170, yPosition)
+    // Draw horizontal line for each row
+    doc.line(tableStartX, yPosition - 5, tableEndX, yPosition - 5)
+    
+    // Draw vertical lines for each row
+    doc.line(subjectColX - 5, yPosition - 10, subjectColX - 5, yPosition - 5)
+    doc.line(scoreColX - 5, yPosition - 10, scoreColX - 5, yPosition - 5)
+    doc.line(maxColX - 5, yPosition - 10, maxColX - 5, yPosition - 5)
+    doc.line(percentageColX - 5, yPosition - 10, percentageColX - 5, yPosition - 5)
+    doc.line(tableEndX, yPosition - 10, tableEndX, yPosition - 5)
+    
+    doc.text(subjectName, subjectColX, yPosition)
+    doc.text(score, scoreColX, yPosition)
+    doc.text(maxMarks, maxColX, yPosition)
+    doc.text(percentage, percentageColX, yPosition)
     yPosition += 10
   })
   
-  // Total row
-  doc.line(20, yPosition + 2, 190, yPosition + 2)
+  // Total row with thicker border
+  doc.line(tableStartX, yPosition + 2, tableEndX, yPosition + 2)
+  
+  // Draw vertical lines for total row
+  doc.line(subjectColX - 5, yPosition - 8, subjectColX - 5, yPosition + 2)
+  doc.line(scoreColX - 5, yPosition - 8, scoreColX - 5, yPosition + 2)
+  doc.line(maxColX - 5, yPosition - 8, maxColX - 5, yPosition + 2)
+  doc.line(percentageColX - 5, yPosition - 8, percentageColX - 5, yPosition + 2)
+  doc.line(tableEndX, yPosition - 8, tableEndX, yPosition + 2)
+  
   yPosition += 10
   
   doc.setFont('helvetica', 'bold')
@@ -93,10 +128,20 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
   const totalMax = '300'
   const totalPercentage = ((result.totalScore / 300) * 100).toFixed(1) + '%'
   
-  doc.text(totalLabel, 30, yPosition)
-  doc.text(totalScore, 120, yPosition)
-  doc.text(totalMax, 150, yPosition)
-  doc.text(totalPercentage, 170, yPosition)
+  doc.text(totalLabel, subjectColX, yPosition)
+  doc.text(totalScore, scoreColX, yPosition)
+  doc.text(totalMax, maxColX, yPosition)
+  doc.text(totalPercentage, percentageColX, yPosition)
+  
+  // Draw bottom border for total row
+  doc.line(tableStartX, yPosition + 5, tableEndX, yPosition + 5)
+  
+  // Draw final vertical lines
+  doc.line(subjectColX - 5, yPosition, subjectColX - 5, yPosition + 5)
+  doc.line(scoreColX - 5, yPosition, scoreColX - 5, yPosition + 5)
+  doc.line(maxColX - 5, yPosition, maxColX - 5, yPosition + 5)
+  doc.line(percentageColX - 5, yPosition, percentageColX - 5, yPosition + 5)
+  doc.line(tableEndX, yPosition, tableEndX, yPosition + 5)
   
   // Final percentage result
   yPosition += 20
