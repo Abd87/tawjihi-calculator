@@ -13,9 +13,9 @@ export default function Home() {
   const { language, setLanguage, t } = useLanguage()
   const [subjects, setSubjects] = useState<Subject[]>([
     { name: 'english', maxMarks: 100, score: 0 },
-    { name: 'islamic', maxMarks: 100, score: 0 },
     { name: 'arabic', maxMarks: 100, score: 0 },
-    { name: 'history', maxMarks: 100, score: 0 },
+    { name: 'islamic', maxMarks: 60, score: 0 },
+    { name: 'history', maxMarks: 40, score: 0 },
   ])
   const [result, setResult] = useState<{ totalScore: number; percentage: number } | null>(null)
 
@@ -32,7 +32,7 @@ export default function Home() {
   const calculateResult = () => {
     const totalScore = subjects.reduce((sum, subject) => sum + subject.score, 0)
     const maxTotal = subjects.reduce((sum, subject) => sum + subject.maxMarks, 0)
-    const percentage = (totalScore / maxTotal) * 100
+    const percentage = (totalScore / maxTotal) * 30 // 30% of the total percentage
     setResult({ totalScore, percentage })
   }
 
@@ -168,8 +168,14 @@ export default function Home() {
               </p>
               <p>
                 {language === 'en'
-                  ? '• The percentage shown is based on the total marks of all subjects'
-                  : '• النسبة المئوية المعروضة مبنية على مجموع درجات جميع المواد'
+                  ? '• Marks distribution: English (100), Arabic (100), Islamic (60), History (40)'
+                  : '• توزيع الدرجات: الإنجليزية (100)، العربية (100)، الإسلامية (60)، التاريخ (40)'
+                }
+              </p>
+              <p>
+                {language === 'en'
+                  ? '• The percentage shown is 30% of your total score (out of 300 marks)'
+                  : '• النسبة المئوية المعروضة هي 30% من مجموع درجاتك (من أصل 300 درجة)'
                 }
               </p>
               <p>
