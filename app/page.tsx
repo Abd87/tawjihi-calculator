@@ -61,10 +61,10 @@ export default function Home() {
     setResult(null)
   }
 
-  return (
-    <div className={`min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 ${language === 'ar' ? 'font-arabic' : ''}`} dir={language === 'ar' ? 'rtl' : 'ltr'}>
-             {/* Header */}
-       <header className="bg-white shadow-lg">
+     return (
+     <div className={`min-h-screen bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 ${language === 'ar' ? 'font-arabic' : ''}`} dir={language === 'ar' ? 'rtl' : 'ltr'}>
+              {/* Header */}
+        <header className="bg-white/95 backdrop-blur-sm shadow-xl border-b border-white/20">
          <div className="container mx-auto px-4 py-4">
            {/* Contact Info Bar */}
            <div className="flex flex-col md:flex-row justify-between items-center mb-4 pb-4 border-b border-gray-200">
@@ -81,19 +81,19 @@ export default function Home() {
                     ashbatat@gmail.com
                   </a>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <span>📞</span>
-                  <a href="tel:+962790881392" className="hover:text-blue-600 transition-colors">
-                    +962 79 088 1392
-                  </a>
-                </div>
+                                 <div className="flex items-center space-x-2">
+                   <span>📞</span>
+                   <a href="tel:+962790881392" className="hover:text-blue-600 transition-colors" dir="ltr">
+                     +962 79 088 1392
+                   </a>
+                 </div>
              </div>
-             <button
-               onClick={toggleLanguage}
-               className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
-             >
-               {language === 'en' ? 'العربية' : 'English'}
-             </button>
+                           <button
+                onClick={toggleLanguage}
+                className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
+              >
+                {language === 'en' ? 'العربية' : 'English'}
+              </button>
            </div>
            
            {/* Main Title */}
@@ -106,151 +106,151 @@ export default function Home() {
        </header>
 
       <main className="container mx-auto px-4 py-8">
-        {/* Hero Section */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            {t('subtitle')}
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            {language === 'en' 
-              ? 'Enter your scores for each subject to calculate your Tawjihi percentage'
-              : 'أدخل درجاتك لكل مادة لحساب نسبة التوجيهي'
-            }
-          </p>
-        </div>
+                 {/* Hero Section */}
+         <div className="text-center mb-12 animate-fade-in">
+           <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 animate-slide-up">
+             {t('subtitle')}
+           </h2>
+           <p className="text-xl text-blue-100 max-w-3xl mx-auto animate-slide-up-delay">
+             {language === 'en' 
+               ? 'Enter your scores for each subject to calculate your Tawjihi percentage'
+               : 'أدخل درجاتك لكل مادة لحساب نسبة التوجيهي'
+             }
+           </p>
+         </div>
 
-        {/* Calculator Section */}
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-            <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
-              {language === 'en' ? 'Enter Your Scores' : 'أدخل درجاتك'}
-            </h3>
+                 {/* Calculator Section */}
+         <div className="max-w-4xl mx-auto">
+           <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-8 animate-fade-in-up">
+             <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+               {language === 'en' ? 'Enter Your Scores' : 'أدخل درجاتك'}
+             </h3>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {subjects.map((subject, index) => (
-                <div key={subject.name} className="bg-gray-50 rounded-lg p-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    {t(subject.name)}
-                  </label>
-                  <div className="flex items-center space-x-3">
-                    <input
-                      type="number"
-                      min="0"
-                      max={subject.maxMarks}
-                      value={subject.score}
-                      onChange={(e) => updateSubjectScore(index, parseInt(e.target.value) || 0)}
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
-                      placeholder="0"
-                    />
-                    <span className="text-sm text-gray-500">
-                      / {subject.maxMarks}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
+                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+               {subjects.map((subject, index) => (
+                 <div key={subject.name} className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-200/50 hover:shadow-lg transition-all duration-300 transform hover:scale-105 animate-fade-in-up" style={{animationDelay: `${index * 100}ms`}}>
+                   <label className="block text-lg font-semibold text-gray-800 mb-3">
+                     {t(subject.name)}
+                   </label>
+                   <div className="flex items-center space-x-3">
+                     <input
+                       type="number"
+                       min="0"
+                       max={subject.maxMarks}
+                       value={subject.score}
+                       onChange={(e) => updateSubjectScore(index, parseInt(e.target.value) || 0)}
+                       className="flex-1 px-4 py-3 border-2 border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                       placeholder="0"
+                     />
+                     <span className="text-lg font-medium text-blue-600">
+                       / {subject.maxMarks}
+                     </span>
+                   </div>
+                 </div>
+               ))}
+             </div>
 
-            <div className="flex justify-center space-x-4 mt-8">
-              <button
-                onClick={calculateResult}
-                className="bg-primary-600 text-white px-8 py-3 rounded-lg hover:bg-primary-700 transition-colors font-medium"
-              >
-                {t('calculate')}
-              </button>
-              <button
-                onClick={resetCalculator}
-                className="bg-gray-500 text-white px-8 py-3 rounded-lg hover:bg-gray-600 transition-colors font-medium"
-              >
-                {language === 'en' ? 'Reset' : 'إعادة تعيين'}
-              </button>
-            </div>
+                         <div className="flex justify-center space-x-6 mt-10">
+               <button
+                 onClick={calculateResult}
+                 className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-10 py-4 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold text-lg"
+               >
+                 {t('calculate')}
+               </button>
+               <button
+                 onClick={resetCalculator}
+                 className="bg-gradient-to-r from-gray-500 to-gray-600 text-white px-10 py-4 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold text-lg"
+               >
+                 {language === 'en' ? 'Reset' : 'إعادة تعيين'}
+               </button>
+             </div>
           </div>
 
-          {/* Results Section */}
-          {result && (
-            <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-              <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
-                {t('result')}
-              </h3>
+                     {/* Results Section */}
+           {result && (
+             <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-8 animate-fade-in-up">
+               <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+                 {t('result')}
+               </h3>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-blue-50 rounded-lg p-6 text-center">
-                  <h4 className="text-lg font-medium text-blue-800 mb-2">
-                    {t('total_score')}
-                  </h4>
-                  <p className="text-3xl font-bold text-blue-600">
-                    {result.totalScore}
-                  </p>
-                </div>
-                
-                <div className="bg-green-50 rounded-lg p-6 text-center">
-                  <h4 className="text-lg font-medium text-green-800 mb-2">
-                    {t('percentage')}
-                  </h4>
-                  <p className="text-3xl font-bold text-green-600">
-                    {result.percentage.toFixed(2)}%
-                  </p>
-                </div>
-              </div>
-
-                             <div className="mt-6 text-center">
-                 <button 
-                   onClick={() => generatePDF(subjects, result, language)}
-                   className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
-                 >
-                   {t('download_pdf')}
-                 </button>
+                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 <div className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl p-8 text-center hover-lift animate-pulse">
+                   <h4 className="text-xl font-semibold text-blue-800 mb-4">
+                     {t('total_score')}
+                   </h4>
+                   <p className="text-5xl font-bold text-blue-600">
+                     {result.totalScore}
+                   </p>
+                 </div>
+                 
+                 <div className="bg-gradient-to-br from-green-100 to-green-200 rounded-xl p-8 text-center hover-lift animate-pulse">
+                   <h4 className="text-xl font-semibold text-green-800 mb-4">
+                     {t('percentage')}
+                   </h4>
+                   <p className="text-5xl font-bold text-green-600">
+                     {result.percentage.toFixed(2)}%
+                   </p>
+                 </div>
                </div>
+
+                                                           <div className="mt-8 text-center">
+                  <button 
+                    onClick={() => generatePDF(subjects, result, language)}
+                    className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold text-lg animate-bounce"
+                  >
+                    📄 {t('download_pdf')}
+                  </button>
+                </div>
             </div>
           )}
 
-                     {/* Social Links Section */}
-           <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-             <h3 className="text-xl font-semibold text-gray-800 mb-6 text-center">
-               {language === 'en' ? 'Join Our Community' : 'انضم لمجتمعنا'}
-             </h3>
+                                           {/* Social Links Section */}
+            <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-8 animate-fade-in-up">
+              <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                {language === 'en' ? 'Join Our Community' : 'انضم لمجتمعنا'}
+              </h3>
              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-               {/* WhatsApp Group */}
-               <a
-                 href="https://chat.whatsapp.com/IYDbChe9mByEe2Ayy5rUfP?mode=ac_t"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="bg-green-600 text-white p-6 rounded-lg text-center hover:bg-green-700 transition-colors"
-               >
-                 <div className="text-3xl mb-2">📱</div>
-                 <h4 className="font-semibold mb-2">WhatsApp</h4>
-                 <p className="text-sm opacity-90">
-                   {language === 'ar' ? 'انضم لمجموعة الواتساب' : 'Join WhatsApp Group'}
-                 </p>
-               </a>
+                               {/* WhatsApp Group */}
+                <a
+                  href="https://chat.whatsapp.com/IYDbChe9mByEe2Ayy5rUfP?mode=ac_t"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gradient-to-br from-green-500 to-green-600 text-white p-8 rounded-xl text-center hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift"
+                >
+                  <div className="text-4xl mb-3 animate-bounce">📱</div>
+                  <h4 className="font-bold text-lg mb-3">WhatsApp</h4>
+                  <p className="text-sm opacity-90">
+                    {language === 'ar' ? 'انضم لمجموعة الواتساب' : 'Join WhatsApp Group'}
+                  </p>
+                </a>
 
-               {/* Instagram */}
-               <a
-                 href="https://www.instagram.com/alwatheq_interactive/"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-6 rounded-lg text-center hover:from-purple-600 hover:to-pink-600 transition-colors"
-               >
-                 <div className="text-3xl mb-2">📸</div>
-                 <h4 className="font-semibold mb-2">Instagram</h4>
-                 <p className="text-sm opacity-90">
-                   {language === 'ar' ? 'تابع على الإنستغرام' : 'Follow on Instagram'}
-                 </p>
-               </a>
+                               {/* Instagram */}
+                <a
+                  href="https://www.instagram.com/alwatheq_interactive/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 text-white p-8 rounded-xl text-center hover:from-purple-600 hover:via-pink-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift"
+                >
+                  <div className="text-4xl mb-3 animate-pulse">📸</div>
+                  <h4 className="font-bold text-lg mb-3">Instagram</h4>
+                  <p className="text-sm opacity-90">
+                    {language === 'ar' ? 'تابع على الإنستغرام' : 'Follow on Instagram'}
+                  </p>
+                </a>
 
-               {/* App Download */}
-               <a
-                 href="https://play.google.com/store/apps/details?id=com.abd.watheq"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="bg-blue-600 text-white p-6 rounded-lg text-center hover:bg-blue-700 transition-colors"
-               >
-                 <div className="text-3xl mb-2">📱</div>
-                 <h4 className="font-semibold mb-2">واثق الأول</h4>
-                 <p className="text-sm opacity-90">
-                   {language === 'ar' ? 'حمل التطبيق' : 'Download App'}
-                 </p>
-               </a>
+                               {/* App Download */}
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.abd.watheq"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white p-8 rounded-xl text-center hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift"
+                >
+                  <div className="text-4xl mb-3 animate-bounce">📱</div>
+                  <h4 className="font-bold text-lg mb-3">واثق الأول</h4>
+                  <p className="text-sm opacity-90">
+                    {language === 'ar' ? 'حمل التطبيق' : 'Download App'}
+                  </p>
+                </a>
              </div>
            </div>
 
