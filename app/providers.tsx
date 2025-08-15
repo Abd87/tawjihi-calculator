@@ -2,6 +2,24 @@
 
 import { createContext, useContext, useState, useEffect } from 'react'
 
+// Cookie utility functions
+const setCookie = (name: string, value: string, days: number) => {
+  const expires = new Date()
+  expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000)
+  document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`
+}
+
+const getCookie = (name: string): string | null => {
+  const nameEQ = name + '='
+  const ca = document.cookie.split(';')
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i]
+    while (c.charAt(0) === ' ') c = c.substring(1, c.length)
+    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length)
+  }
+  return null
+}
+
 type Language = 'en' | 'ar'
 
 interface LanguageContextType {
@@ -78,20 +96,32 @@ const translations = {
 }
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>('en')
-
+  const [language, setLanguage] = useState<Language>('ar') // Default to Arabic
+  
   useEffect(() => {
-    // Auto-detect language based on browser
-    const browserLang = navigator.language.startsWith('ar') ? 'ar' : 'en'
-    setLanguage(browserLang)
+    // Check for saved language preference in cookies
+    const savedLanguage = getCookie('language') as Language
+    if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'ar')) {
+      setLanguage(savedLanguage)
+    } else {
+      // Default to Arabic, but check browser language as fallback
+      const browserLang = navigator.language.startsWith('ar') ? 'ar' : 'en'
+      setLanguage(browserLang)
+    }
   }, [])
+
+  const updateLanguage = (newLanguage: Language) => {
+    setLanguage(newLanguage)
+    // Save language preference in cookie for 1 year
+    setCookie('language', newLanguage, 365)
+  }
 
   const t = (key: string) => {
     return translations[language][key as keyof typeof translations.en] || key
   }
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage: updateLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   )

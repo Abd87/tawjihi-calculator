@@ -19,6 +19,25 @@ export default function Home() {
     { name: 'history', maxMarks: 40, score: 0 },
   ])
   const [result, setResult] = useState<{ totalScore: number; percentage: number } | null>(null)
+  const [showCookieBanner, setShowCookieBanner] = useState(false)
+
+  // Cookie consent management
+  useEffect(() => {
+    const cookieConsent = localStorage.getItem('cookieConsent')
+    if (!cookieConsent) {
+      setShowCookieBanner(true)
+    }
+  }, [])
+
+  const acceptCookies = () => {
+    localStorage.setItem('cookieConsent', 'accepted')
+    setShowCookieBanner(false)
+  }
+
+  const declineCookies = () => {
+    localStorage.setItem('cookieConsent', 'declined')
+    setShowCookieBanner(false)
+  }
 
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'ar' : 'en')
@@ -56,18 +75,18 @@ export default function Home() {
                  </span>
                  <span>عبد الرحمن الشبطات</span>
                </div>
-               <div className="flex items-center space-x-2">
-                 <span>📧</span>
-                 <a href="mailto:abdlarahman.alshabatat@gmail.com" className="hover:text-blue-600 transition-colors">
-                   abdlarahman.alshabatat@gmail.com
-                 </a>
-               </div>
-               <div className="flex items-center space-x-2">
-                 <span>📞</span>
-                 <a href="tel:+962790000000" className="hover:text-blue-600 transition-colors">
-                   +962 79 000 0000
-                 </a>
-               </div>
+                               <div className="flex items-center space-x-2">
+                  <span>📧</span>
+                  <a href="mailto:ashbatat@gmail.com" className="hover:text-blue-600 transition-colors">
+                    ashbatat@gmail.com
+                  </a>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span>📞</span>
+                  <a href="tel:+962790881392" className="hover:text-blue-600 transition-colors">
+                    +962 79 088 1392
+                  </a>
+                </div>
              </div>
              <button
                onClick={toggleLanguage}
@@ -270,22 +289,52 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white py-8 mt-12">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-sm">
-            {t('developed_by')} Tawjihi Calculator Team
-          </p>
-          <div className="mt-4 space-x-4">
-            <a href="#" className="text-blue-400 hover:text-blue-300">
-              {t('contact_us')}
-            </a>
-            <a href="#" className="text-blue-400 hover:text-blue-300">
-              {t('join_groups')}
-            </a>
-          </div>
-        </div>
-      </footer>
-    </div>
-  )
-}
+             {/* Footer */}
+       <footer className="bg-gray-800 text-white py-8 mt-12">
+         <div className="container mx-auto px-4 text-center">
+           <p className="text-sm">
+             {t('developed_by')} Tawjihi Calculator Team
+           </p>
+           <div className="mt-4 space-x-4">
+             <a href="#" className="text-blue-400 hover:text-blue-300">
+               {t('contact_us')}
+             </a>
+             <a href="#" className="text-blue-400 hover:text-blue-300">
+               {t('join_groups')}
+             </a>
+           </div>
+         </div>
+       </footer>
+
+       {/* Cookie Consent Banner */}
+       {showCookieBanner && (
+         <div className="fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 z-50">
+           <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
+             <div className="mb-4 md:mb-0 md:mr-4">
+               <p className="text-sm">
+                 {language === 'en' 
+                   ? 'We use cookies to improve your experience and remember your language preference.'
+                   : 'نحن نستخدم ملفات تعريف الارتباط لتحسين تجربتك وتذكر تفضيلات اللغة الخاصة بك.'
+                 }
+               </p>
+             </div>
+             <div className="flex space-x-3">
+               <button
+                 onClick={acceptCookies}
+                 className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm"
+               >
+                 {language === 'en' ? 'Accept' : 'قبول'}
+               </button>
+               <button
+                 onClick={declineCookies}
+                 className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors text-sm"
+               >
+                 {language === 'en' ? 'Decline' : 'رفض'}
+               </button>
+             </div>
+           </div>
+         </div>
+       )}
+     </div>
+   )
+ }
