@@ -96,12 +96,12 @@ export default function Home() {
               </button>
            </div>
            
-           {/* Main Title */}
-           <div className="flex justify-center">
-             <h1 className="text-2xl font-bold text-gray-800">
-               {t('title')}
-             </h1>
-           </div>
+                       {/* Main Title */}
+            <div className="flex justify-center">
+              <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent animate-spin-slow">
+                {t('title')}
+              </h1>
+            </div>
          </div>
        </header>
 
@@ -150,16 +150,16 @@ export default function Home() {
                ))}
              </div>
 
-                         <div className="flex justify-center space-x-6 mt-10">
+                         <div className="flex justify-center space-x-12 mt-10">
                <button
                  onClick={calculateResult}
-                 className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-10 py-4 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold text-lg"
+                 className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-12 py-4 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold text-lg"
                >
                  {t('calculate')}
                </button>
                <button
                  onClick={resetCalculator}
-                 className="bg-gradient-to-r from-gray-500 to-gray-600 text-white px-10 py-4 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold text-lg"
+                 className="bg-gradient-to-r from-gray-500 to-gray-600 text-white px-12 py-4 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold text-lg"
                >
                  {language === 'en' ? 'Reset' : 'إعادة تعيين'}
                </button>
