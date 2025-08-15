@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useLanguage } from './providers'
+import { generatePDF } from './utils/pdfGenerator'
 
 interface Subject {
   name: string
@@ -146,11 +147,14 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="mt-6 text-center">
-                <button className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium">
-                  {t('download_pdf')}
-                </button>
-              </div>
+                             <div className="mt-6 text-center">
+                 <button 
+                   onClick={() => generatePDF(subjects, result, language)}
+                   className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
+                 >
+                   {t('download_pdf')}
+                 </button>
+               </div>
             </div>
           )}
 
