@@ -319,22 +319,22 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white py-8 mt-12">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-sm">
-            {t('developed_by')} Tawjihi Calculator Team
-          </p>
-          <div className="mt-4 space-x-4">
-            <a href="#" className="text-blue-400 hover:text-blue-300">
-              {t('contact_us')}
-            </a>
-            <a href="#" className="text-blue-400 hover:text-blue-300">
-              {t('join_groups')}
-            </a>
-          </div>
-        </div>
-      </footer>
+             {/* Footer */}
+       <footer className="bg-gray-800 text-white py-8 mt-12">
+         <div className="container mx-auto px-4 text-center">
+           <p className="text-sm">
+             {t('developed_by')} عبد الرحمن الشبطات - 2025-2026
+           </p>
+           <div className="mt-4 space-x-4">
+             <a href="mailto:ashbatat@gmail.com" className="text-blue-400 hover:text-blue-300">
+               {language === 'en' ? 'Contact Us' : 'تواصل معنا'}
+             </a>
+             <a href="https://chat.whatsapp.com/IYDbChe9mByEe2Ayy5rUfP?mode=ac_t" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
+               {language === 'en' ? 'Join Groups' : 'انضم للمجموعات'}
+             </a>
+           </div>
+         </div>
+       </footer>
 
       {/* Cookie Consent Banner */}
       {showCookieBanner && (
