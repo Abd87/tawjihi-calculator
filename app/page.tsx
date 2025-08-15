@@ -59,6 +59,17 @@ export default function Home() {
     const percentage = (totalScore / maxTotal) * 30 // 30% of the total percentage
     setResult({ totalScore, percentage })
     setShowNameInput(true)
+    
+    // Scroll to results section after a short delay to ensure DOM update
+    setTimeout(() => {
+      const resultsSection = document.getElementById('results-section')
+      if (resultsSection) {
+        resultsSection.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start' 
+        })
+      }
+    }, 100)
   }
 
   const resetCalculator = () => {
@@ -223,9 +234,9 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Results Section */}
-          {result && (
-            <div className="max-w-6xl mx-auto">
+                     {/* Results Section */}
+           {result && (
+             <div id="results-section" className="max-w-6xl mx-auto">
               <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-8 animate-fade-in-up">
                 <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
                   {t('result')}
