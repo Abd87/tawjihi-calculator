@@ -44,20 +44,47 @@ export default function Home() {
 
   return (
     <div className={`min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 ${language === 'ar' ? 'font-arabic' : ''}`} dir={language === 'ar' ? 'rtl' : 'ltr'}>
-      {/* Header */}
-      <header className="bg-white shadow-lg">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-800">
-            {t('title')}
-          </h1>
-          <button
-            onClick={toggleLanguage}
-            className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
-          >
-            {language === 'en' ? 'العربية' : 'English'}
-          </button>
-        </div>
-      </header>
+             {/* Header */}
+       <header className="bg-white shadow-lg">
+         <div className="container mx-auto px-4 py-4">
+           {/* Contact Info Bar */}
+           <div className="flex flex-col md:flex-row justify-between items-center mb-4 pb-4 border-b border-gray-200">
+             <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-600">
+               <div className="flex items-center space-x-2">
+                 <span className="font-semibold">
+                   {language === 'en' ? 'Developer:' : 'المطور:'}
+                 </span>
+                 <span>عبد الرحمن الشبطات</span>
+               </div>
+               <div className="flex items-center space-x-2">
+                 <span>📧</span>
+                 <a href="mailto:abdlarahman.alshabatat@gmail.com" className="hover:text-blue-600 transition-colors">
+                   abdlarahman.alshabatat@gmail.com
+                 </a>
+               </div>
+               <div className="flex items-center space-x-2">
+                 <span>📞</span>
+                 <a href="tel:+962790000000" className="hover:text-blue-600 transition-colors">
+                   +962 79 000 0000
+                 </a>
+               </div>
+             </div>
+             <button
+               onClick={toggleLanguage}
+               className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
+             >
+               {language === 'en' ? 'العربية' : 'English'}
+             </button>
+           </div>
+           
+           {/* Main Title */}
+           <div className="flex justify-center">
+             <h1 className="text-2xl font-bold text-gray-800">
+               {t('title')}
+             </h1>
+           </div>
+         </div>
+       </header>
 
       <main className="container mx-auto px-4 py-8">
         {/* Hero Section */}
