@@ -24,7 +24,7 @@ const getSubjectName = (subjectName: string, language: string) => {
   }
 }
 
-export const generatePDF = async (subjects: Subject[], result: { totalScore: number; percentage: number }, language: string) => {
+export const generatePDF = async (subjects: Subject[], result: { totalScore: number; percentage: number }, language: string, studentName: string) => {
   // Dynamically import jsPDF to avoid build issues
   const { jsPDF } = await import('jspdf')
   
@@ -32,59 +32,121 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
   
   // Title
   const title = language === 'ar' ? 'Tawjihi Result Certificate' : 'Tawjihi Result Certificate'
-  doc.setFontSize(20)
+  doc.setFontSize(24)
+  doc.setFont('helvetica', 'bold')
   doc.text(title, 105, 20, { align: 'center' })
   
-  // Line separator
-  doc.line(20, 30, 190, 30)
-  
-  // Subject scores
+  // Website branding
   doc.setFontSize(12)
-  let yPosition = 50
+  doc.setFont('helvetica', 'normal')
+  const website = 'tawjihi-calculator.vercel.app'
+  doc.text(website, 105, 30, { align: 'center' })
+  
+  // Line separator
+  doc.line(20, 35, 190, 35)
+  
+  // Student name
+  doc.setFontSize(14)
+  doc.setFont('helvetica', 'bold')
+  const nameLabel = language === 'ar' ? 'Student Name:' : 'Student Name:'
+  doc.text(nameLabel, 30, 50)
+  doc.setFont('helvetica', 'normal')
+  doc.text(studentName, 80, 50)
+  
+  // Date
+  const dateLabel = language === 'ar' ? 'Date:' : 'Date:'
+  doc.setFont('helvetica', 'bold')
+  doc.text(dateLabel, 30, 65)
+  doc.setFont('helvetica', 'normal')
+  const currentDate = new Date().toLocaleDateString()
+  doc.text(currentDate, 80, 65)
+  
+  // Table header
+  doc.setFontSize(12)
+  doc.setFont('helvetica', 'bold')
+  doc.text('Subject', 30, 85)
+  doc.text('Score', 120, 85)
+  doc.text('Max', 150, 85)
+  doc.text('Percentage', 170, 85)
+  
+  // Table line
+  doc.line(20, 90, 190, 90)
+  
+  // Subject scores in table format
+  doc.setFont('helvetica', 'normal')
+  let yPosition = 105
   
   subjects.forEach((subject) => {
     const subjectName = getSubjectName(subject.name, language)
-    const score = `${subject.score}/${subject.maxMarks}`
+    const score = subject.score.toString()
+    const maxMarks = subject.maxMarks.toString()
+    const percentage = ((subject.score / subject.maxMarks) * 100).toFixed(1) + '%'
     
-    // For Arabic, use English labels but keep Arabic subject names
-    const displayName = language === 'ar' ? 
-      (subject.name === 'english' ? 'English' :
-       subject.name === 'arabic' ? 'Arabic' :
-       subject.name === 'islamic' ? 'Islamic' :
-       subject.name === 'history' ? 'History' : subject.name) : subjectName
-    
-    doc.text(displayName, 30, yPosition)
-    doc.text(score, 150, yPosition)
+    doc.text(subjectName, 30, yPosition)
+    doc.text(score, 120, yPosition)
+    doc.text(maxMarks, 150, yPosition)
+    doc.text(percentage, 170, yPosition)
     yPosition += 10
   })
   
-  // Total score
-  doc.line(20, yPosition + 5, 190, yPosition + 5)
-  yPosition += 15
+  // Total row
+  doc.line(20, yPosition + 2, 190, yPosition + 2)
+  yPosition += 10
   
-  const totalLabel = 'Total Score'
-  const totalScore = `${result.totalScore}/300`
-  
-  doc.setFontSize(14)
   doc.setFont('helvetica', 'bold')
-  doc.text(totalLabel, 30, yPosition)
-  doc.text(totalScore, 150, yPosition)
+  const totalLabel = language === 'ar' ? 'Total' : 'Total'
+  const totalScore = result.totalScore.toString()
+  const totalMax = '300'
+  const totalPercentage = ((result.totalScore / 300) * 100).toFixed(1) + '%'
   
-  // Percentage result
+  doc.text(totalLabel, 30, yPosition)
+  doc.text(totalScore, 120, yPosition)
+  doc.text(totalMax, 150, yPosition)
+  doc.text(totalPercentage, 170, yPosition)
+  
+  // Final percentage result
   yPosition += 20
   doc.setFontSize(16)
-  const percentageLabel = 'First Year Percentage (30%)'
-  const percentage = `${result.percentage.toFixed(2)}%`
+  doc.setFont('helvetica', 'bold')
+  const finalLabel = language === 'ar' ? 'First Year Percentage (30%)' : 'First Year Percentage (30%)'
+  const finalPercentage = `${result.percentage.toFixed(2)}%`
   
-  doc.text(percentageLabel, 30, yPosition)
-  doc.text(percentage, 150, yPosition)
+  doc.text(finalLabel, 30, yPosition)
+  doc.text(finalPercentage, 150, yPosition)
+  
+  // Contact information
+  yPosition += 30
+  doc.setFontSize(12)
+  doc.setFont('helvetica', 'bold')
+  const contactLabel = language === 'ar' ? 'Contact Information:' : 'Contact Information:'
+  doc.text(contactLabel, 30, yPosition)
+  
+  yPosition += 10
+  doc.setFont('helvetica', 'normal')
+  doc.text('Developer: Abdlarahman Alshabatat', 30, yPosition)
+  
+  yPosition += 8
+  doc.text('Email: ashbatat@gmail.com', 30, yPosition)
+  
+  yPosition += 8
+  doc.text('Phone: +962 79 088 1392', 30, yPosition)
+  
+  // Website information
+  yPosition += 15
+  doc.setFont('helvetica', 'bold')
+  const websiteLabel = language === 'ar' ? 'Visit our website:' : 'Visit our website:'
+  doc.text(websiteLabel, 30, yPosition)
+  
+  yPosition += 8
+  doc.setFont('helvetica', 'normal')
+  doc.text(website, 30, yPosition)
   
   // Footer
   doc.setFontSize(10)
   doc.setFont('helvetica', 'normal')
-  const footer = 'Developed by Abdlarahman Alshabatat'
+  const footer = 'Generated by Tawjihi Calculator - Developed by Abdlarahman Alshabatat'
   doc.text(footer, 105, 270, { align: 'center' })
   
   // Save the PDF
-  doc.save(`tawjihi-result-${Date.now()}.pdf`)
+  doc.save(`tawjihi-result-${studentName}-${Date.now()}.pdf`)
 }

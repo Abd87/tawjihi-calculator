@@ -20,6 +20,8 @@ export default function Home() {
   ])
   const [result, setResult] = useState<{ totalScore: number; percentage: number } | null>(null)
   const [showCookieBanner, setShowCookieBanner] = useState(false)
+  const [studentName, setStudentName] = useState('')
+  const [showNameInput, setShowNameInput] = useState(false)
 
   // Cookie consent management
   useEffect(() => {
@@ -56,11 +58,14 @@ export default function Home() {
     const maxTotal = subjects.reduce((sum, subject) => sum + subject.maxMarks, 0)
     const percentage = (totalScore / maxTotal) * 30 // 30% of the total percentage
     setResult({ totalScore, percentage })
+    setShowNameInput(true)
   }
 
   const resetCalculator = () => {
     setSubjects(prevSubjects => prevSubjects.map(subject => ({ ...subject, score: 0 })))
     setResult(null)
+    setStudentName('')
+    setShowNameInput(false)
   }
 
   return (
@@ -246,14 +251,33 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="mt-8 text-center">
-                  <button 
-                    onClick={() => generatePDF(subjects, result, language)}
-                    className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold text-lg animate-bounce"
-                  >
-                    📄 {t('download_pdf')}
-                  </button>
-                </div>
+                                 <div className="mt-8 text-center">
+                   {showNameInput && (
+                     <div className="mb-6">
+                       <label className="block text-lg font-semibold text-gray-800 mb-3">
+                         {language === 'en' ? 'Enter Your Name:' : 'أدخل اسمك:'}
+                       </label>
+                       <input
+                         type="text"
+                         value={studentName}
+                         onChange={(e) => setStudentName(e.target.value)}
+                         className="px-4 py-3 border-2 border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-center text-lg"
+                         placeholder={language === 'en' ? 'Your Name' : 'اسمك'}
+                       />
+                     </div>
+                   )}
+                   <button 
+                     onClick={() => generatePDF(subjects, result, language, studentName)}
+                     disabled={!studentName.trim()}
+                     className={`px-8 py-4 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold text-lg animate-bounce ${
+                       studentName.trim() 
+                         ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700' 
+                         : 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                     }`}
+                   >
+                     📄 {t('download_pdf')}
+                   </button>
+                 </div>
               </div>
             </div>
           )}
