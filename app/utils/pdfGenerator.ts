@@ -208,23 +208,44 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
   
   // Save the PDF with mobile-friendly approach
   try {
-    // For mobile devices, create a blob and download
-    const pdfBlob = doc.output('blob')
-    const url = URL.createObjectURL(pdfBlob)
+    // Check if it's a mobile device
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
     
-    // Create a temporary link element
-    const link = document.createElement('a')
-    link.href = url
-    link.download = `tawjihi-result-${studentName}-${Date.now()}.pdf`
-    link.style.display = 'none'
-    
-    // Add to DOM, click, and cleanup
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-    
-    // Clean up the URL object
-    setTimeout(() => URL.revokeObjectURL(url), 1000)
+    if (isMobile) {
+      // For mobile devices, open PDF in new tab
+      const pdfBlob = doc.output('blob')
+      const url = URL.createObjectURL(pdfBlob)
+      
+      // Open in new tab for mobile users
+      const newWindow = window.open(url, '_blank')
+      
+      // Clean up the URL object after a delay
+      setTimeout(() => {
+        URL.revokeObjectURL(url)
+        // If window is still open, close it after 5 seconds
+        if (newWindow && !newWindow.closed) {
+          setTimeout(() => newWindow.close(), 5000)
+        }
+      }, 2000)
+    } else {
+      // For desktop devices, use download approach
+      const pdfBlob = doc.output('blob')
+      const url = URL.createObjectURL(pdfBlob)
+      
+      // Create a temporary link element
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `tawjihi-result-${studentName}-${Date.now()}.pdf`
+      link.style.display = 'none'
+      
+      // Add to DOM, click, and cleanup
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      
+      // Clean up the URL object
+      setTimeout(() => URL.revokeObjectURL(url), 1000)
+    }
   } catch (error) {
     // Fallback for older browsers
     doc.save(`tawjihi-result-${studentName}-${Date.now()}.pdf`)

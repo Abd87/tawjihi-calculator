@@ -277,23 +277,37 @@ export default function Home() {
                        />
                      </div>
                    )}
-                                       <button 
-                      onClick={() => {
-                        // Show loading state
-                        const button = event?.target as HTMLButtonElement
-                        const originalText = button.innerHTML
-                        button.innerHTML = '⏳ ' + (language === 'en' ? 'Generating PDF...' : 'جاري إنشاء PDF...')
-                        button.disabled = true
+                                                            <button 
+                       onClick={() => {
+                         // Show loading state
+                         const button = event?.target as HTMLButtonElement
+                         const originalText = button.innerHTML
+                         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+                         button.innerHTML = '⏳ ' + (language === 'en' ? 'Generating PDF...' : 'جاري إنشاء PDF...')
+                         button.disabled = true
+                         
+                         // Show mobile instruction if needed
+                         if (isMobile) {
+                           const instruction = language === 'en' 
+                             ? 'PDF will open in a new tab. Use your browser\'s share button to save it.'
+                             : 'سيتم فتح PDF في تبويب جديد. استخدم زر المشاركة في المتصفح لحفظه.'
+                           alert(instruction)
+                         }
                         
-                        generatePDF(subjects, result, language, studentName)
-                          .then(() => {
-                            // Success - restore button
-                            button.innerHTML = '✅ ' + (language === 'en' ? 'PDF Downloaded!' : 'تم تحميل PDF!')
-                            setTimeout(() => {
-                              button.innerHTML = originalText
-                              button.disabled = false
-                            }, 2000)
-                          })
+                                                 generatePDF(subjects, result, language, studentName)
+                           .then(() => {
+                             // Success - restore button
+                             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+                             if (isMobile) {
+                               button.innerHTML = '✅ ' + (language === 'en' ? 'PDF Opened!' : 'تم فتح PDF!')
+                             } else {
+                               button.innerHTML = '✅ ' + (language === 'en' ? 'PDF Downloaded!' : 'تم تحميل PDF!')
+                             }
+                             setTimeout(() => {
+                               button.innerHTML = originalText
+                               button.disabled = false
+                             }, 2000)
+                           })
                           .catch((error) => {
                             // Error - restore button
                             button.innerHTML = '❌ ' + (language === 'en' ? 'Download Failed' : 'فشل التحميل')
