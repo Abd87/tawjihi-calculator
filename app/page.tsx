@@ -153,6 +153,20 @@ export default function Home() {
                   انضم إلينا على الإنستغرام
                 </p>
               </a>
+
+              {/* App Download */}
+              <a
+                href="https://play.google.com/store/apps/details?id=com.abd.watheq"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white p-6 rounded-xl text-center hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift block"
+              >
+                <div className="text-3xl mb-3 animate-bounce">📱</div>
+                <h4 className="font-bold text-lg mb-2">واثق الأول</h4>
+                <p className="text-sm opacity-90">
+                  {language === 'ar' ? 'حمل التطبيق' : 'Download App'}
+                </p>
+              </a>
             </div>
 
             {/* Calculator - Right Side */}
@@ -186,7 +200,7 @@ export default function Home() {
                   ))}
                 </div>
 
-                <div className="flex justify-center space-x-12 mt-10">
+                <div className={`flex justify-center mt-10 ${language === 'ar' ? 'space-x-20' : 'space-x-12'}`}>
                   <button
                     onClick={calculateResult}
                     className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-12 py-4 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg font-semibold text-lg"
@@ -244,28 +258,7 @@ export default function Home() {
             </div>
           )}
 
-          {/* App Download Section */}
-          <div className="max-w-6xl mx-auto">
-            <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-8 animate-fade-in-up">
-              <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                {language === 'en' ? 'Download Our App' : 'حمل تطبيقنا'}
-              </h3>
-              <div className="text-center">
-                <a
-                  href="https://play.google.com/store/apps/details?id=com.abd.watheq"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white p-8 rounded-xl text-center hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift inline-block"
-                >
-                  <div className="text-4xl mb-3 animate-bounce">📱</div>
-                  <h4 className="font-bold text-lg mb-3">واثق الأول</h4>
-                  <p className="text-sm opacity-90">
-                    {language === 'ar' ? 'حمل التطبيق' : 'Download App'}
-                  </p>
-                </a>
-              </div>
-            </div>
-          </div>
+
 
           {/* Additional Information */}
           <div className="bg-white rounded-xl shadow-lg p-6">
