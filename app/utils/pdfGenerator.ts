@@ -5,22 +5,13 @@ interface Subject {
 }
 
 const getSubjectName = (subjectName: string, language: string) => {
-  if (language === 'ar') {
-    switch (subjectName) {
-      case 'english': return 'اللغة الإنجليزية'
-      case 'arabic': return 'اللغة العربية'
-      case 'islamic': return 'التربية الإسلامية'
-      case 'history': return 'التاريخ'
-      default: return subjectName
-    }
-  } else {
-    switch (subjectName) {
-      case 'english': return 'English'
-      case 'arabic': return 'Arabic'
-      case 'islamic': return 'Islamic'
-      case 'history': return 'History'
-      default: return subjectName
-    }
+  // Always use English names in PDF for better compatibility
+  switch (subjectName) {
+    case 'english': return 'English'
+    case 'arabic': return 'Arabic'
+    case 'islamic': return 'Islamic'
+    case 'history': return 'History'
+    default: return subjectName
   }
 }
 
@@ -30,8 +21,11 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
   
   const doc = new jsPDF()
   
+  // For Arabic support, we'll use a different approach
+  // Since Arabic fonts are complex to embed, we'll use English labels but keep Arabic content where needed
+  
   // Title
-  const title = language === 'ar' ? 'Tawjihi Result Certificate' : 'Tawjihi Result Certificate'
+  const title = 'Tawjihi Result Certificate'
   doc.setFontSize(24)
   doc.setFont('helvetica', 'bold')
   doc.text(title, 105, 20, { align: 'center' })
@@ -48,13 +42,13 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
   // Student name
   doc.setFontSize(14)
   doc.setFont('helvetica', 'bold')
-  const nameLabel = language === 'ar' ? 'Student Name:' : 'Student Name:'
+  const nameLabel = 'Student Name:'
   doc.text(nameLabel, 30, 50)
   doc.setFont('helvetica', 'normal')
   doc.text(studentName, 80, 50)
   
   // Date
-  const dateLabel = language === 'ar' ? 'Date:' : 'Date:'
+  const dateLabel = 'Date:'
   doc.setFont('helvetica', 'bold')
   doc.text(dateLabel, 30, 65)
   doc.setFont('helvetica', 'normal')
@@ -94,7 +88,7 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
   yPosition += 10
   
   doc.setFont('helvetica', 'bold')
-  const totalLabel = language === 'ar' ? 'Total' : 'Total'
+  const totalLabel = 'Total'
   const totalScore = result.totalScore.toString()
   const totalMax = '300'
   const totalPercentage = ((result.totalScore / 300) * 100).toFixed(1) + '%'
@@ -108,7 +102,7 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
   yPosition += 20
   doc.setFontSize(16)
   doc.setFont('helvetica', 'bold')
-  const finalLabel = language === 'ar' ? 'First Year Percentage (30%)' : 'First Year Percentage (30%)'
+  const finalLabel = 'First Year Percentage (30%)'
   const finalPercentage = `${result.percentage.toFixed(2)}%`
   
   doc.text(finalLabel, 30, yPosition)
@@ -118,7 +112,7 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
   yPosition += 30
   doc.setFontSize(12)
   doc.setFont('helvetica', 'bold')
-  const contactLabel = language === 'ar' ? 'Contact Information:' : 'Contact Information:'
+  const contactLabel = 'Contact Information:'
   doc.text(contactLabel, 30, yPosition)
   
   yPosition += 10
@@ -134,7 +128,7 @@ export const generatePDF = async (subjects: Subject[], result: { totalScore: num
   // Website information
   yPosition += 15
   doc.setFont('helvetica', 'bold')
-  const websiteLabel = language === 'ar' ? 'Visit our website:' : 'Visit our website:'
+  const websiteLabel = 'Visit our website:'
   doc.text(websiteLabel, 30, yPosition)
   
   yPosition += 8
