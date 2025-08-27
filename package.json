@@ -19,7 +19,8 @@
     "tailwindcss": "^3.3.0",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.31",
-    "jspdf": "^2.5.1"
+    "jspdf": "^2.5.1",
+    "@vercel/analytics": "^1.1.1"
   },
   "devDependencies": {
     "typescript": "^5",
