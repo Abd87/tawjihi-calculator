@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useLanguage } from './providers'
 import { generatePDF } from './utils/pdfGenerator'
+import { track } from '@vercel/analytics'
 
 interface Subject {
   name: string
@@ -42,7 +43,14 @@ export default function Home() {
   }
 
   const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'ar' : 'en')
+    const newLanguage = language === 'en' ? 'ar' : 'en'
+    setLanguage(newLanguage)
+    
+    // Track language change
+    track('language_changed', {
+      from: language,
+      to: newLanguage
+    })
   }
 
   const updateSubjectScore = (index: number, score: number) => {
@@ -59,6 +67,13 @@ export default function Home() {
     const percentage = (totalScore / maxTotal) * 30 // 30% of the total percentage
     setResult({ totalScore, percentage })
     setShowNameInput(true)
+    
+    // Track calculation event
+    track('calculation_performed', {
+      totalScore,
+      percentage: percentage.toFixed(2),
+      language
+    })
     
     // Scroll to results section after a short delay to ensure DOM update
     setTimeout(() => {
@@ -147,6 +162,7 @@ export default function Home() {
                 href="https://chat.whatsapp.com/IYDbChe9mByEe2Ayy5rUfP?mode=ac_t"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => track('social_link_clicked', { platform: 'whatsapp', language })}
                 className="bg-gradient-to-br from-green-500 to-green-600 text-white p-6 rounded-xl text-center hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift block"
               >
                 <div className="text-3xl mb-3 animate-bounce">📱</div>
@@ -161,6 +177,7 @@ export default function Home() {
                 href="https://www.instagram.com/alwatheq_interactive/"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => track('social_link_clicked', { platform: 'instagram', language })}
                 className="bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 text-white p-6 rounded-xl text-center hover:from-purple-600 hover:via-pink-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift block"
               >
                 <div className="text-3xl mb-3 animate-pulse">📸</div>
@@ -175,6 +192,7 @@ export default function Home() {
                 href="https://play.google.com/store/apps/details?id=com.abd.watheq"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => track('social_link_clicked', { platform: 'google_play', language })}
                 className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white p-6 rounded-xl text-center hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover-lift block"
               >
                 <div className="text-3xl mb-3 animate-bounce">📱</div>
@@ -286,16 +304,30 @@ export default function Home() {
                          button.innerHTML = '⏳ ' + (language === 'en' ? 'Generating PDF...' : 'جاري إنشاء PDF...')
                          button.disabled = true
                          
-                                                   // Show mobile instruction if needed
-                                                     if (isMobile) {
-                             const instruction = language === 'en' 
-                               ? 'PDF will open in a new tab. To save:\n\n1. Look for the share button (📤) in your browser\n2. Or tap the menu (⋮) and select "Share"\n3. Choose "Save to Files" or "Download"\n4. The PDF will stay open until you close it'
-                               : 'سيتم فتح PDF في تبويب جديد. للحفظ:\n\n1. ابحث عن زر المشاركة (📤) في المتصفح\n2. أو اضغط على القائمة (⋮) واختر "مشاركة"\n3. اختر "حفظ في الملفات" أو "تحميل"\n4. سيبقى PDF مفتوحاً حتى تقوم بإغلاقه'
-                             alert(instruction)
-                           }
+                                                   // Track PDF download attempt
+                         track('pdf_download_attempted', {
+                           language,
+                           isMobile,
+                           studentName: studentName.trim()
+                         })
+                         
+                         // Show mobile instruction if needed
+                         if (isMobile) {
+                           const instruction = language === 'en' 
+                             ? 'PDF will open in a new tab. To save:\n\n1. Look for the share button (📤) in your browser\n2. Or tap the menu (⋮) and select "Share"\n3. Choose "Save to Files" or "Download"\n4. The PDF will stay open until you close it'
+                             : 'سيتم فتح PDF في تبويب جديد. للحفظ:\n\n1. ابحث عن زر المشاركة (📤) في المتصفح\n2. أو اضغط على القائمة (⋮) واختر "مشاركة"\n3. اختر "حفظ في الملفات" أو "تحميل"\n4. سيبقى PDF مفتوحاً حتى تقوم بإغلاقه'
+                           alert(instruction)
+                         }
                         
-                                                 generatePDF(subjects, result, language, studentName)
+                         generatePDF(subjects, result, language, studentName)
                            .then(() => {
+                             // Track successful PDF generation
+                             track('pdf_download_success', {
+                               language,
+                               isMobile,
+                               studentName: studentName.trim()
+                             })
+                             
                              // Success - restore button
                              const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
                              if (isMobile) {
@@ -309,6 +341,13 @@ export default function Home() {
                              }, 2000)
                            })
                           .catch((error) => {
+                            // Track PDF download error
+                            track('pdf_download_error', {
+                              language,
+                              isMobile,
+                              error: error.message || 'Unknown error'
+                            })
+                            
                             // Error - restore button
                             button.innerHTML = '❌ ' + (language === 'en' ? 'Download Failed' : 'فشل التحميل')
                             setTimeout(() => {
